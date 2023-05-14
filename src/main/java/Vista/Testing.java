@@ -1,10 +1,10 @@
 
-package Interfaz;
+package Vista;
 
-import Arbol.ArbolProductos;
-import Arbol.Inventario_Impl;
-import Arbol.Producto;
-import Arbol.Tad_Inventario;
+import ArbolProductos.ArbolProductos;
+import ArbolProductos.Inventario_Impl;
+import ArbolProductos.Producto;
+import ArbolProductos.Tad_Inventario;
 import javax.swing.JOptionPane;
 /**
  *
