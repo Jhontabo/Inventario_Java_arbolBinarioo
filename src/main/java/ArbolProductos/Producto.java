@@ -9,17 +9,17 @@ public class Producto {
     private String Tipo;
     private Double precio;
     private int cantidad;
-    private int Id_producto;
+    private int referencia;
    
     
     
     
-    public Producto(String nombre, String Tipo, Double precio, int cantidad, int Id_producto) {
+    public Producto(String nombre, String Tipo, Double precio, int cantidad, int referencia) {
         this.nombre = nombre;
         this.Tipo = Tipo;
         this.precio = precio;
         this.cantidad = cantidad;
-        this.Id_producto = Id_producto;
+        this.referencia = referencia;
     }
     /**
      * @return the nombre
@@ -83,15 +83,15 @@ public class Producto {
     /**
      * @return the Id_producto
      */
-    public int getId_producto() {
-        return Id_producto;
+    public int getReferencia() {
+        return referencia;
     }
 
     /**
-     * @param Id_producto the Id_producto to set
+     * @param Referencia the Id_producto to set
      */
-    public void setId_producto(int Id_producto) {
-        this.Id_producto = Id_producto;
+    public void setReferencia(int referencia) {
+        this.referencia = referencia;
     }
 }
 

@@ -26,7 +26,7 @@ public class ArbolProductos {
 
     private void insertar(Tad_Inventario<Producto> raiz, Producto a) {
         
-        if(a.getId_producto()<raiz.obtener().getId_producto()){
+        if(a.getReferencia()<raiz.obtener().getReferencia()){
             if(raiz.izq()==null){
                 raiz.enlIzq(new Inventario_Impl<>(a));
             }else{
@@ -55,7 +55,7 @@ public class ArbolProductos {
     }
 
     public void visitar(Tad_Inventario<Producto> r) {
-        con+="Nombre : "+ r.obtener().getNombre() + "       Tipo :"+r.obtener().getTipo()+"           Precio :"+r.obtener().getPrecio()+"                           Cantidad :"+r.obtener().getCantidad()+"       Referencia :"+r.obtener().getId_producto() +"\n";
+        con+="Nombre : "+ r.obtener().getNombre() + "       Tipo :"+r.obtener().getTipo()+"           Precio :"+r.obtener().getPrecio()+"                           Cantidad :"+r.obtener().getCantidad()+"       Referencia :"+r.obtener().getReferencia() +"\n";
     }
     
     public String mostrar(Tad_Inventario<Producto>r){
@@ -65,38 +65,38 @@ public class ArbolProductos {
     }
     
     
-   public Tad_Inventario<Producto>buscarPorId(int idP){
+   public Tad_Inventario<Producto>buscarPorId(int ref){
        if(raiz==null){
            return null;
        }else{
-           return buscar(raiz,idP);
+           return buscar(raiz,ref);
        }
    } 
 
-    private Tad_Inventario<Producto> buscar(Tad_Inventario<Producto> raiz, int idP) {
-        if(idP==raiz.obtener().getId_producto()){
+    private Tad_Inventario<Producto> buscar(Tad_Inventario<Producto> raiz, int ref) {
+        if(ref==raiz.obtener().getReferencia()){
             return raiz;
         }else{
-            if(idP<raiz.obtener().getId_producto()){
+            if(ref<raiz.obtener().getReferencia()){
                 if(raiz.izq()==null){
                     return null;
                 }else{
-                    return buscar(raiz.izq(),idP);
+                    return buscar(raiz.izq(),ref);
                 }
             }else{
                 if(raiz.der()==null){
                     return null;
                 }else{
-                    return buscar(raiz.der(), idP);
+                    return buscar(raiz.der(), ref);
                 }
             }
         }
     }
     
     
-    public void modificar(Tad_Inventario<Producto>r,int idP,double precio,String tipo){
-        if(buscarPorId(idP)!=null){
-            if(r.obtener().getId_producto()==idP){
+    public void modificar(Tad_Inventario<Producto>r,int ref,double precio,String tipo){
+        if(buscarPorId(ref)!=null){
+            if(r.obtener().getReferencia()==ref){
                 r.obtener().setPrecio(precio);
                 r.obtener().setTipo(tipo);
             }
@@ -110,10 +110,10 @@ public class ArbolProductos {
     }
 
     private Tad_Inventario<Producto> eliminar(Tad_Inventario<Producto> raiz, int x) {
-        if(raiz.obtener().getId_producto()==x){
+        if(raiz.obtener().getReferencia()==x){
             return borrar(raiz,x);
         }else{
-            if(x<raiz.obtener().getId_producto()){
+            if(x<raiz.obtener().getReferencia()){
                 raiz.enlIzq(eliminar(raiz.izq(),x));
             }else{
                 raiz.enlDer(eliminar(raiz.der(),x));
@@ -134,7 +134,7 @@ public class ArbolProductos {
                 }else{
                     Tad_Inventario<Producto>may=numeroMayor(raiz.izq());
                     raiz.Modificar(may.obtener());
-                    raiz.enlIzq(eliminar(raiz.izq(),may.obtener().getId_producto()));
+                    raiz.enlIzq(eliminar(raiz.izq(),may.obtener().getReferencia()));
                     return raiz;
                 }
             }
