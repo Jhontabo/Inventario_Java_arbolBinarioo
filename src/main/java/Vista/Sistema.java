@@ -4,15 +4,20 @@
  */
 package Vista;
 
+import Modelo.Cliente;
+import Modelo.ClienteDao;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Jhontabo
  */
 public class Sistema extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Sistema
-     */
+    
+    Cliente cl=new Cliente();
+    ClienteDao client= new ClienteDao();
+    
     public Sistema() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -59,8 +64,8 @@ public class Sistema extends javax.swing.JFrame {
         lbl_telefonoP = new javax.swing.JLabel();
         lbl_direccionP = new javax.swing.JLabel();
         lbl_correoP = new javax.swing.JLabel();
-        jTextNombre = new javax.swing.JTextField();
-        jTextTelefono = new javax.swing.JTextField();
+        jTextNombreP = new javax.swing.JTextField();
+        jTextTelefonoP = new javax.swing.JTextField();
         jTextDireccionP = new javax.swing.JTextField();
         jTextCorreoP = new javax.swing.JTextField();
         btn_agregarP = new javax.swing.JButton();
@@ -306,11 +311,11 @@ public class Sistema extends javax.swing.JFrame {
 
         lbl_direccionP.setText("Direccion :");
 
-        lbl_correoP.setText("Correo");
+        lbl_correoP.setText("Correo :");
 
-        jTextTelefono.addActionListener(new java.awt.event.ActionListener() {
+        jTextTelefonoP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextTelefonoActionPerformed(evt);
+                jTextTelefonoPActionPerformed(evt);
             }
         });
 
@@ -351,8 +356,8 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(lbl_correoP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(44, 44, 44)
                         .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                            .addComponent(jTextTelefono)
+                            .addComponent(jTextNombreP, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                            .addComponent(jTextTelefonoP)
                             .addComponent(jTextDireccionP)
                             .addComponent(jTextCorreoP)))
                     .addGroup(Vista3Layout.createSequentialGroup()
@@ -374,11 +379,11 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(41, 41, 41)
                         .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_NombreP)
-                            .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextNombreP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34)
                         .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_telefonoP)
-                            .addComponent(jTextTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextTelefonoP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(43, 43, 43)
                         .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_direccionP)
@@ -556,11 +561,29 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btn_agregarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarCActionPerformed
         // TODO add your handling code here:
+        
+        if (!"".equals(jTex_NombreC.getText()) || !"".equals(jText_DireccionC.getText()) || !"".equals(jText_TelefonoC.getText()) || !"".equals(jText_CorreoC.getText())) {
+      
+            cl.setNombre(jTex_NombreC.getText());
+            cl.setDireccion(jText_DireccionC.getText());
+            cl.setTelefono(jText_TelefonoC.getText());
+            cl.setCorreo(jText_CorreoC.getText());
+            client.RegistrarCliente(cl);
+            JOptionPane.showMessageDialog(null, "Cliente Registrado");
+            /*LimpiarTable();
+            LimpiarCliente();
+            ListarCliente();
+            btnEditarCliente.setEnabled(false);
+            btnEliminarCliente.setEnabled(false);
+            btnGuardarCliente.setEnabled(true);*/
+        } else {
+            JOptionPane.showMessageDialog(null, "Los campos estan vacios");
+        }
     }//GEN-LAST:event_btn_agregarCActionPerformed
 
-    private void jTextTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextTelefonoActionPerformed
+    private void jTextTelefonoPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextTelefonoPActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextTelefonoActionPerformed
+    }//GEN-LAST:event_jTextTelefonoPActionPerformed
 
     /**
      * @param args the command line arguments
@@ -641,10 +664,10 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField jTextCodigoPr;
     private javax.swing.JTextField jTextCorreoP;
     private javax.swing.JTextField jTextDireccionP;
-    private javax.swing.JTextField jTextNombre;
+    private javax.swing.JTextField jTextNombreP;
     private javax.swing.JTextField jTextNombrePr;
     private javax.swing.JTextField jTextPrecioPr;
-    private javax.swing.JTextField jTextTelefono;
+    private javax.swing.JTextField jTextTelefonoP;
     private javax.swing.JTextField jTextTipoPr;
     private javax.swing.JTextField jText_CorreoC;
     private javax.swing.JTextField jText_DireccionC;

@@ -448,8 +448,8 @@
                               </Group>
                               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jTextNombre" alignment="0" pref="108" max="32767" attributes="0"/>
-                                  <Component id="jTextTelefono" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jTextNombreP" alignment="0" pref="108" max="32767" attributes="0"/>
+                                  <Component id="jTextTelefonoP" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jTextDireccionP" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jTextCorreoP" alignment="0" max="32767" attributes="0"/>
                               </Group>
@@ -477,12 +477,12 @@
                               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lbl_NombreP" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextNombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextNombreP" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lbl_telefonoP" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextTelefonoP" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -529,14 +529,14 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_correoP">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Correo"/>
+                <Property name="text" type="java.lang.String" value="Correo :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextNombre">
+            <Component class="javax.swing.JTextField" name="jTextNombreP">
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextTelefono">
+            <Component class="javax.swing.JTextField" name="jTextTelefonoP">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextTelefonoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextTelefonoPActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextDireccionP">
@@ -848,14 +848,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
-                  <Component id="btn_nuevaVenta" min="-2" pref="44" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                  <Component id="btn_nuevaVenta" min="-2" pref="53" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="btn_clientes" min="-2" pref="55" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="btn_proovedores" min="-2" pref="44" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                  <Component id="btn_productos" min="-2" pref="48" max="-2" attributes="0"/>
-                  <EmptySpace pref="88" max="32767" attributes="0"/>
+                  <Component id="btn_proovedores" min="-2" pref="53" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="btn_productos" min="-2" pref="52" max="-2" attributes="0"/>
+                  <EmptySpace pref="84" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
