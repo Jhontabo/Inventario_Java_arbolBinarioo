@@ -3,7 +3,10 @@ package Modelo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,7 +19,7 @@ public class ClienteDao {
     Conexion cn= new Conexion();
     Connection con;
     PreparedStatement ps;
-    
+    ResultSet rs;
     public boolean RegistrarCliente(Cliente cl){
         String sql ="INSERT INTO clientes (nombre,dirección,telefono,correo)VALUES(?,?,?,?)"; 
         
@@ -42,6 +45,32 @@ public class ClienteDao {
                 System.out.println(e.toString());
             }
         }
+    }
+    
+    
+    public List Listarcliente(){
+        List<Cliente> ListaCl = new ArrayList();
+        String sql="SELECT * FROM clientes";
+        try
+        {
+            con=cn.getConnection();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            
+            while(rs.next()){
+                Cliente cl= new Cliente();
+                cl.setId(rs.getInt("id"));
+                cl.setNombre(rs.getString("nombre"));
+                cl.setDireccion(rs.getString("direccion"));
+                cl.setTelefono(rs.getString("telefono"));
+                cl.setCorreo(rs.getString("correo"));
+                ListaCl.add(cl);
+            }
+        } catch (SQLException e)
+        {
+            System.out.println(e.toString());
+        }
+        return ListaCl;
     }
     
 }

@@ -6,7 +6,9 @@ package Vista;
 
 import Modelo.Cliente;
 import Modelo.ClienteDao;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,10 +19,38 @@ public class Sistema extends javax.swing.JFrame {
     
     Cliente cl=new Cliente();
     ClienteDao client= new ClienteDao();
+    DefaultTableModel model= new DefaultTableModel();
     
     public Sistema() {
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+    
+    public void ListarCliente(){
+        List<Cliente> ListarCl=client.Listarcliente();
+        model = (DefaultTableModel) TableCliente.getModel();
+        Object [] ob = new Object[6];
+        
+        for(int i=0; i<ListarCl.size();i++){
+            
+            ob[0]=ListarCl.get(i).getId();
+            ob[1]=ListarCl.get(i).getNombre();
+            ob[2]=ListarCl.get(i).getDireccion();
+            ob[3]=ListarCl.get(i).getTelefono();
+            ob[4]=ListarCl.get(i).getCorreo();
+            model.addRow(ob);
+            
+        }
+        
+        TableCliente.setModel(model);
+    }
+    
+    public void LimpiarTable(){
+        for(int i=0;i<model.getRowCount();i++){
+            model.removeRow(i);
+            i=i-1;
+            
+        }
     }
 
     /**
@@ -55,7 +85,7 @@ public class Sistema extends javax.swing.JFrame {
         jTex_NombreC = new javax.swing.JTextField();
         jText_TelefonoC = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        TableCliente = new javax.swing.JTable();
         btn_actualizarC = new javax.swing.JButton();
         btn_agregarC = new javax.swing.JButton();
         bnt_eliminarC = new javax.swing.JButton();
@@ -207,20 +237,21 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        TableCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "NOMBRE", "DIRECCION", "TELEFONO", "CORREO"
+                "ID", "NOMBRE", "DIRECCION", "TELEFONO", "CORREO"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(100);
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(80);
-            jTable2.getColumnModel().getColumn(2).setPreferredWidth(50);
-            jTable2.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jScrollPane2.setViewportView(TableCliente);
+        if (TableCliente.getColumnModel().getColumnCount() > 0) {
+            TableCliente.getColumnModel().getColumn(0).setPreferredWidth(30);
+            TableCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
+            TableCliente.getColumnModel().getColumn(2).setPreferredWidth(80);
+            TableCliente.getColumnModel().getColumn(3).setPreferredWidth(50);
+            TableCliente.getColumnModel().getColumn(4).setPreferredWidth(100);
         }
 
         btn_actualizarC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/actualizar.png"))); // NOI18N
@@ -516,6 +547,11 @@ public class Sistema extends javax.swing.JFrame {
 
         btn_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cliente.png"))); // NOI18N
         btn_clientes.setText("Clientes");
+        btn_clientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clientesActionPerformed(evt);
+            }
+        });
 
         btn_proovedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/mensajero.png"))); // NOI18N
         btn_proovedores.setText("Proveedor");
@@ -585,6 +621,13 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextTelefonoPActionPerformed
 
+    private void btn_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clientesActionPerformed
+        // TODO add your handling code here:
+       LimpiarTable();
+       ListarCliente();
+       jTabbedPane1.setSelectedIndex(1);
+    }//GEN-LAST:event_btn_clientesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -633,6 +676,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField JText_Codigo;
     private javax.swing.JTextField JText_Precio;
     private javax.swing.JTextField JText_StockD;
+    private javax.swing.JTable TableCliente;
     private javax.swing.JPanel Vista1;
     private javax.swing.JPanel Vista2;
     private javax.swing.JPanel Vista3;
@@ -656,7 +700,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTex_NombreC;
