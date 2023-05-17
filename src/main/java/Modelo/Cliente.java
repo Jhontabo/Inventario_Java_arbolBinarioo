@@ -8,6 +8,7 @@ package Modelo;
 public class Cliente {
     
    private int id;
+   private String cedula;
    private String nombre;
    private String direccion;
    private String telefono;
@@ -17,8 +18,9 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(int id, String nombre, String direccion, String telefono, String correo) {
+    public Cliente(int id,String cedula, String nombre, String direccion, String telefono, String correo) {
         this.id = id;
+        this.cedula=cedula;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
@@ -64,6 +66,16 @@ public class Cliente {
     public void setCorreo(String corre) {
         this.correo = corre;
     }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+    
+    
    
     
 }

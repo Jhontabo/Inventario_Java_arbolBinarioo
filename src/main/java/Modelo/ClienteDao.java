@@ -21,16 +21,17 @@ public class ClienteDao {
     PreparedStatement ps;
     ResultSet rs;
     public boolean RegistrarCliente(Cliente cl){
-        String sql ="INSERT INTO clientes (nombre,direccion,telefono,correo)VALUES(?,?,?,?)"; 
+        String sql ="INSERT INTO clientes (cedula,nombre,direccion,telefono,correo)VALUES(?,?,?,?,?)"; 
         
         try
         {
            con =cn.getConnection();
            ps=con.prepareStatement(sql);
-           ps.setString(1, cl.getNombre());
-           ps.setString(2, cl.getDireccion());
-           ps.setString(3, cl.getTelefono());
-           ps.setString(4, cl.getCorreo());
+           ps.setString(1, cl.getCedula());
+           ps.setString(2, cl.getNombre());
+           ps.setString(3, cl.getDireccion());
+           ps.setString(4, cl.getTelefono());
+           ps.setString(5, cl.getCorreo());
            ps.execute();
            return true;
         } catch (Exception e){
@@ -60,6 +61,7 @@ public class ClienteDao {
             while(rs.next()){
                 Cliente cl= new Cliente();
                 cl.setId(rs.getInt("id"));
+                cl.setCedula(rs.getString("cedula"));
                 cl.setNombre(rs.getString("nombre"));
                 cl.setDireccion(rs.getString("direccion"));
                 cl.setTelefono(rs.getString("telefono"));
@@ -71,6 +73,30 @@ public class ClienteDao {
             System.out.println(e.toString());
         }
         return ListaCl;
+    }
+    
+    public boolean EliminarCliente(int id){
+       String sql="DELETE FROM clientes WHERE id =?";
+       
+        try
+        {
+            ps=con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+            return true;
+        } catch (SQLException e)
+        {
+            System.out.println(e.toString());
+            return false;
+        }finally{
+           try
+           {
+               con.close();
+           } catch (SQLException ex)
+           {
+               System.out.println(ex.toString());
+           }
+        }
     }
     
 }

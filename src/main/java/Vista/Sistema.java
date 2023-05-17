@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Vista;
 
 import Modelo.Cliente;
@@ -34,10 +31,11 @@ public class Sistema extends javax.swing.JFrame {
         for(int i=0; i<ListarCl.size();i++){
             
             ob[0]=ListarCl.get(i).getId();
-            ob[1]=ListarCl.get(i).getNombre();
-            ob[2]=ListarCl.get(i).getDireccion();
-            ob[3]=ListarCl.get(i).getTelefono();
-            ob[4]=ListarCl.get(i).getCorreo();
+            ob[1]=ListarCl.get(i).getCedula();
+            ob[2]=ListarCl.get(i).getNombre();
+            ob[3]=ListarCl.get(i).getDireccion();
+            ob[4]=ListarCl.get(i).getTelefono();
+            ob[5]=ListarCl.get(i).getCorreo();
             model.addRow(ob);
             
         }
@@ -89,6 +87,9 @@ public class Sistema extends javax.swing.JFrame {
         btn_actualizarC = new javax.swing.JButton();
         btn_agregarC = new javax.swing.JButton();
         bnt_eliminarC = new javax.swing.JButton();
+        lbl_cedulaC = new javax.swing.JLabel();
+        jText_cedulaC = new javax.swing.JTextField();
+        txtIdCliente = new javax.swing.JTextField();
         Vista3 = new javax.swing.JPanel();
         lbl_NombreP = new javax.swing.JLabel();
         lbl_telefonoP = new javax.swing.JLabel();
@@ -242,16 +243,22 @@ public class Sistema extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "NOMBRE", "DIRECCION", "TELEFONO", "CORREO"
+                "ID", "CEDULA", "NOMBRE", "DIRECCION", "TELEFONO", "CORREO"
             }
         ));
+        TableCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableClienteMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(TableCliente);
         if (TableCliente.getColumnModel().getColumnCount() > 0) {
             TableCliente.getColumnModel().getColumn(0).setPreferredWidth(30);
-            TableCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
-            TableCliente.getColumnModel().getColumn(2).setPreferredWidth(80);
-            TableCliente.getColumnModel().getColumn(3).setPreferredWidth(50);
-            TableCliente.getColumnModel().getColumn(4).setPreferredWidth(100);
+            TableCliente.getColumnModel().getColumn(1).setPreferredWidth(30);
+            TableCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
+            TableCliente.getColumnModel().getColumn(3).setPreferredWidth(80);
+            TableCliente.getColumnModel().getColumn(4).setPreferredWidth(50);
+            TableCliente.getColumnModel().getColumn(5).setPreferredWidth(100);
         }
 
         btn_actualizarC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/actualizar.png"))); // NOI18N
@@ -264,6 +271,13 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         bnt_eliminarC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/borrar.png"))); // NOI18N
+        bnt_eliminarC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnt_eliminarCActionPerformed(evt);
+            }
+        });
+
+        lbl_cedulaC.setText("cc :");
 
         javax.swing.GroupLayout Vista2Layout = new javax.swing.GroupLayout(Vista2);
         Vista2.setLayout(Vista2Layout);
@@ -289,15 +303,18 @@ public class Sistema extends javax.swing.JFrame {
                                 .addGap(2, 2, 2)
                                 .addGroup(Vista2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jTex_NombreC, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jText_DireccionC, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jText_DireccionC, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jText_cedulaC, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(17, 17, 17))
                     .addGroup(Vista2Layout.createSequentialGroup()
-                        .addGroup(Vista2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Vista2Layout.createSequentialGroup()
+                        .addGroup(Vista2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Vista2Layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addComponent(lbl_telefonoC, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lbl_direccionC, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_nombreC, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lbl_direccionC, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_nombreC, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_cedulaC, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -309,7 +326,11 @@ public class Sistema extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Vista2Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addGap(29, 29, 29)
+                .addGroup(Vista2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_cedulaC)
+                    .addComponent(jText_cedulaC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(Vista2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_nombreC)
                     .addComponent(jTex_NombreC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -325,7 +346,9 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(Vista2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jText_CorreoC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_correoC))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(Vista2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Vista2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(btn_actualizarC)
@@ -598,17 +621,19 @@ public class Sistema extends javax.swing.JFrame {
     private void btn_agregarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarCActionPerformed
         // TODO add your handling code here:
         
-        if (!"".equals(jTex_NombreC.getText()) || !"".equals(jText_DireccionC.getText()) || !"".equals(jText_TelefonoC.getText()) || !"".equals(jText_CorreoC.getText())) {
-      
+        if (!"".equals(jText_cedulaC.getText()) ||!"".equals(jTex_NombreC.getText()) || !"".equals(jText_DireccionC.getText()) || !"".equals(jText_TelefonoC.getText()) || !"".equals(jText_CorreoC.getText())) {
+       
+            cl.setCedula(jText_cedulaC.getText());
             cl.setNombre(jTex_NombreC.getText());
             cl.setDireccion(jText_DireccionC.getText());
             cl.setTelefono(jText_TelefonoC.getText());
             cl.setCorreo(jText_CorreoC.getText());
             client.RegistrarCliente(cl);
             JOptionPane.showMessageDialog(null, "Cliente Registrado");
-            /*LimpiarTable();
+            LimpiarTable();     
             LimpiarCliente();
             ListarCliente();
+            /*
             btnEditarCliente.setEnabled(false);
             btnEliminarCliente.setEnabled(false);
             btnGuardarCliente.setEnabled(true);*/
@@ -627,6 +652,38 @@ public class Sistema extends javax.swing.JFrame {
        ListarCliente();
        jTabbedPane1.setSelectedIndex(1);
     }//GEN-LAST:event_btn_clientesActionPerformed
+
+    private void TableClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableClienteMouseClicked
+        // TODO add your handling code here:
+        
+        int fila = TableCliente.rowAtPoint(evt.getPoint());
+        
+        txtIdCliente.setText(TableCliente.getValueAt(fila, 0).toString());
+        jText_cedulaC.setText(TableCliente.getValueAt(fila, 1).toString());
+        jTex_NombreC.setText(TableCliente.getValueAt(fila, 2).toString());
+        jText_DireccionC.setText(TableCliente.getValueAt(fila, 3).toString());
+        jText_TelefonoC.setText(TableCliente.getValueAt(fila, 4).toString());
+        jText_CorreoC.setText(TableCliente.getValueAt(fila, 5).toString());
+        
+    }//GEN-LAST:event_TableClienteMouseClicked
+
+    private void bnt_eliminarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_eliminarCActionPerformed
+        // TODO add your handling code here:
+        
+        if(!"".equals(txtIdCliente.getText())){
+            int pregunta = JOptionPane.showConfirmDialog(null,"Esta seguro de elimar");
+            
+            if(pregunta== 0){
+                
+                int id=Integer.parseInt(txtIdCliente.getText());
+                client.EliminarCliente(id);
+                ListarCliente();
+                LimpiarTable();
+                ListarCliente();
+            }
+        }
+        
+    }//GEN-LAST:event_bnt_eliminarCActionPerformed
 
     /**
      * @param args the command line arguments
@@ -715,12 +772,14 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField jText_CorreoC;
     private javax.swing.JTextField jText_DireccionC;
     private javax.swing.JTextField jText_TelefonoC;
+    private javax.swing.JTextField jText_cedulaC;
     private javax.swing.JLabel lbl_CodigoPr;
     private javax.swing.JLabel lbl_NombreP;
     private javax.swing.JLabel lbl_PrecioPr;
     private javax.swing.JLabel lbl_TipoPr;
     private javax.swing.JLabel lbl_cantidad;
     private javax.swing.JLabel lbl_cantidadPr;
+    private javax.swing.JLabel lbl_cedulaC;
     private javax.swing.JLabel lbl_codigo;
     private javax.swing.JLabel lbl_correoC;
     private javax.swing.JLabel lbl_correoP;
@@ -734,5 +793,14 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_stockD;
     private javax.swing.JLabel lbl_telefonoC;
     private javax.swing.JLabel lbl_telefonoP;
+    private javax.swing.JTextField txtIdCliente;
     // End of variables declaration//GEN-END:variables
+private void LimpiarCliente(){
+    txtIdCliente.setText("");
+    jText_cedulaC.setText("");
+    jTex_NombreC.setText("");
+    jText_DireccionC.setText("");
+    jText_TelefonoC.setText("");
+    jText_CorreoC.setText("");
+}
 }
