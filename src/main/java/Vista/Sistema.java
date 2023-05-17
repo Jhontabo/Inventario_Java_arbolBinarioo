@@ -225,7 +225,7 @@ public class Sistema extends javax.swing.JFrame {
 
         lbl_nombreC.setText("Nombre :");
 
-        lbl_direccionC.setText("Dirección :");
+        lbl_direccionC.setText("Direccion :");
 
         lbl_telefonoC.setText("Telefono :");
 

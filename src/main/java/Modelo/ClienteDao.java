@@ -21,7 +21,7 @@ public class ClienteDao {
     PreparedStatement ps;
     ResultSet rs;
     public boolean RegistrarCliente(Cliente cl){
-        String sql ="INSERT INTO clientes (nombre,dirección,telefono,correo)VALUES(?,?,?,?)"; 
+        String sql ="INSERT INTO clientes (nombre,direccion,telefono,correo)VALUES(?,?,?,?)"; 
         
         try
         {
