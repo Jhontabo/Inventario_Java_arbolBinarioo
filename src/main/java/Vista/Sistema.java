@@ -48,6 +48,26 @@ public class Sistema extends javax.swing.JFrame {
         TableCliente.setModel(model);
     }
     
+    
+      public void ListarProovedor(){
+        List<Proveedor> ListarPr=prDao.ListarProveedor();
+        model = (DefaultTableModel) TableProveedor.getModel();
+        Object [] ob = new Object[6];
+        
+        for(int i=0; i<ListarPr.size();i++){
+            
+            ob[0]=ListarPr.get(i).getId();
+            ob[1]=ListarPr.get(i).getRuc();
+            ob[2]=ListarPr.get(i).getNombre();
+            ob[3]=ListarPr.get(i).getDireccion();
+            ob[4]=ListarPr.get(i).getTelefono();
+            ob[5]=ListarPr.get(i).getCorreo();
+            model.addRow(ob);
+            
+        }
+        
+        TableProveedor.setModel(model);
+    }
     public void LimpiarTable(){
         for(int i=0;i<model.getRowCount();i++){
             model.removeRow(i);
@@ -108,7 +128,7 @@ public class Sistema extends javax.swing.JFrame {
         btn_eliminarP = new javax.swing.JButton();
         btn_actualizarP = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        TableProveedor = new javax.swing.JTable();
         jText_rucPr = new javax.swing.JTextField();
         lbl_ruc = new javax.swing.JLabel();
         txtIdProovedor = new javax.swing.JTextField();
@@ -397,21 +417,22 @@ public class Sistema extends javax.swing.JFrame {
 
         btn_actualizarP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/actualizar.png"))); // NOI18N
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        TableProveedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "NOMBRE", "TELEFONO", "DIRECCION", "CORREO"
+                "ID", "RUC", "NOMBRE", "TELEFONO", "DIRECCION", "CORREO"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
-        if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(0).setPreferredWidth(30);
-            jTable3.getColumnModel().getColumn(1).setPreferredWidth(100);
-            jTable3.getColumnModel().getColumn(2).setPreferredWidth(50);
-            jTable3.getColumnModel().getColumn(3).setPreferredWidth(100);
-            jTable3.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jScrollPane3.setViewportView(TableProveedor);
+        if (TableProveedor.getColumnModel().getColumnCount() > 0) {
+            TableProveedor.getColumnModel().getColumn(0).setPreferredWidth(30);
+            TableProveedor.getColumnModel().getColumn(1).setPreferredWidth(30);
+            TableProveedor.getColumnModel().getColumn(2).setPreferredWidth(100);
+            TableProveedor.getColumnModel().getColumn(3).setPreferredWidth(50);
+            TableProveedor.getColumnModel().getColumn(4).setPreferredWidth(100);
+            TableProveedor.getColumnModel().getColumn(5).setPreferredWidth(100);
         }
 
         lbl_ruc.setText("Ruc :");
@@ -421,35 +442,37 @@ public class Sistema extends javax.swing.JFrame {
         Vista3Layout.setHorizontalGroup(
             Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Vista3Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lbl_ruc, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_direccionP, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                        .addComponent(lbl_correoP, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+                    .addComponent(btn_agregarP, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_NombreP, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_telefonoP, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Vista3Layout.createSequentialGroup()
                         .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_agregarP, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_ruc, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_direccionP, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_correoP, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(Vista3Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
+                                .addGap(5, 5, 5)
                                 .addComponent(btn_eliminarP, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_actualizarP, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(Vista3Layout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextDireccionP, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextCorreoP, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextTelefonoP, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextNombreP, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jText_rucPr, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtIdProovedor, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lbl_NombreP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbl_telefonoP, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                                .addGap(61, 61, 61)
+                                .addComponent(txtIdProovedor, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(25, 25, 25))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Vista3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextNombreP, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jText_rucPr, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextTelefonoP, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextDireccionP, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextCorreoP, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(43, 43, 43)))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
+                .addContainerGap())
         );
         Vista3Layout.setVerticalGroup(
             Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -545,16 +568,16 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(jTextNombrePr, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextTipoPr)
                             .addComponent(jTextPrecioPr))
-                        .addGap(32, 32, 32))
+                        .addGap(15, 15, 15))
                     .addGroup(Vista4Layout.createSequentialGroup()
                         .addComponent(btn_agregarPr, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_eliminarPr, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(btn_actualizarPr, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         Vista4Layout.setVerticalGroup(
             Vista4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -610,6 +633,11 @@ public class Sistema extends javax.swing.JFrame {
 
         btn_proovedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/mensajero.png"))); // NOI18N
         btn_proovedores.setText("Proveedor");
+        btn_proovedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_proovedoresActionPerformed(evt);
+            }
+        });
 
         btn_productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Productos.png"))); // NOI18N
         btn_productos.setText("Productos");
@@ -762,6 +790,12 @@ public class Sistema extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_agregarPActionPerformed
 
+    private void btn_proovedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_proovedoresActionPerformed
+        // TODO add your handling code here:
+        ListarProovedor();
+        jTabbedPane1.setSelectedIndex(2);
+    }//GEN-LAST:event_btn_proovedoresActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -811,6 +845,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField JText_Precio;
     private javax.swing.JTextField JText_StockD;
     private javax.swing.JTable TableCliente;
+    private javax.swing.JTable TableProveedor;
     private javax.swing.JPanel Vista1;
     private javax.swing.JPanel Vista2;
     private javax.swing.JPanel Vista3;
@@ -834,7 +869,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTex_NombreC;
     private javax.swing.JTextField jTextCantidadPr;

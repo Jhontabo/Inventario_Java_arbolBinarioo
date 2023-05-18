@@ -51,6 +51,7 @@ public class ProveedorDao {
                 pr.setNombre(rs.getString("nombre"));
                 pr.setTelefono(rs.getString("telefono"));
                 pr.setDireccion(rs.getString("direccion"));
+                pr.setCorreo(rs.getString("correo"));
                 Listapr.add(pr);
             }
             
