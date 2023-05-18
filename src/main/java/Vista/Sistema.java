@@ -3,6 +3,8 @@ package Vista;
 
 import Modelo.Cliente;
 import Modelo.ClienteDao;
+import Modelo.Proveedor;
+import Modelo.ProveedorDao;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,6 +18,8 @@ public class Sistema extends javax.swing.JFrame {
     
     Cliente cl=new Cliente();
     ClienteDao client= new ClienteDao();
+    Proveedor pr= new Proveedor();
+    ProveedorDao prDao = new ProveedorDao();
     DefaultTableModel model= new DefaultTableModel();
     
     public Sistema() {
@@ -105,6 +109,9 @@ public class Sistema extends javax.swing.JFrame {
         btn_actualizarP = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
+        jText_rucPr = new javax.swing.JTextField();
+        lbl_ruc = new javax.swing.JLabel();
+        txtIdProovedor = new javax.swing.JTextField();
         Vista4 = new javax.swing.JPanel();
         lbl_CodigoPr = new javax.swing.JLabel();
         lbl_TipoPr = new javax.swing.JLabel();
@@ -380,6 +387,11 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         btn_agregarP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/agregar.png"))); // NOI18N
+        btn_agregarP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarPActionPerformed(evt);
+            }
+        });
 
         btn_eliminarP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/borrar.png"))); // NOI18N
 
@@ -390,73 +402,87 @@ public class Sistema extends javax.swing.JFrame {
 
             },
             new String [] {
-                "NOMBRE", "TELEFONO", "DIRECCION", "CORREO"
+                "ID", "NOMBRE", "TELEFONO", "DIRECCION", "CORREO"
             }
         ));
         jScrollPane3.setViewportView(jTable3);
         if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(0).setPreferredWidth(100);
-            jTable3.getColumnModel().getColumn(1).setPreferredWidth(50);
-            jTable3.getColumnModel().getColumn(2).setPreferredWidth(100);
+            jTable3.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable3.getColumnModel().getColumn(1).setPreferredWidth(100);
+            jTable3.getColumnModel().getColumn(2).setPreferredWidth(50);
             jTable3.getColumnModel().getColumn(3).setPreferredWidth(100);
+            jTable3.getColumnModel().getColumn(4).setPreferredWidth(100);
         }
+
+        lbl_ruc.setText("Ruc :");
 
         javax.swing.GroupLayout Vista3Layout = new javax.swing.GroupLayout(Vista3);
         Vista3.setLayout(Vista3Layout);
         Vista3Layout.setHorizontalGroup(
             Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Vista3Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
                 .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Vista3Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbl_NombreP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbl_telefonoP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbl_direccionP, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                            .addComponent(lbl_correoP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(44, 44, 44)
-                        .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextNombreP, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                            .addComponent(jTextTelefonoP)
-                            .addComponent(jTextDireccionP)
-                            .addComponent(jTextCorreoP)))
-                    .addGroup(Vista3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btn_agregarP, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_eliminarP, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(btn_actualizarP, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_agregarP, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_ruc, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_direccionP, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_correoP, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Vista3Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_eliminarP, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_actualizarP, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(Vista3Layout.createSequentialGroup()
+                                .addGap(48, 48, 48)
+                                .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextDireccionP, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextCorreoP, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextTelefonoP, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextNombreP, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jText_rucPr, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtIdProovedor, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lbl_NombreP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl_telefonoP, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
         Vista3Layout.setVerticalGroup(
             Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Vista3Layout.createSequentialGroup()
-                .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(Vista3Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
+                        .addGap(40, 40, 40)
+                        .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jText_rucPr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_ruc))
+                        .addGap(18, 18, 18)
                         .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_NombreP)
                             .addComponent(jTextNombreP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_telefonoP)
                             .addComponent(jTextTelefonoP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(43, 43, 43)
+                        .addGap(25, 25, 25)
                         .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_direccionP)
                             .addComponent(jTextDireccionP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
-                        .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbl_correoP)
-                            .addComponent(jTextCorreoP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(59, 59, 59)
+                        .addGap(34, 34, 34)
                         .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_agregarP)
-                            .addComponent(btn_eliminarP)
-                            .addComponent(btn_actualizarP)))
+                            .addComponent(jTextCorreoP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_correoP))
+                        .addGap(31, 31, 31)
+                        .addComponent(txtIdProovedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(Vista3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_agregarP, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btn_eliminarP, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btn_actualizarP, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(Vista3Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -718,6 +744,24 @@ public class Sistema extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_actualizarCActionPerformed
 
+    private void btn_agregarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarPActionPerformed
+        // TODO add your handling code here:
+         if (!"".equals(jText_rucPr.getText()) ||!"".equals(jTextNombreP.getText()) || !"".equals(jTextDireccionP.getText()) || !"".equals(jTextTelefonoP.getText()) || !"".equals(jTextCorreoP.getText())){
+             
+                pr.setRuc(jText_rucPr.getText());
+                pr.setNombre(jTextNombreP.getText());
+                pr.setDireccion(jTextDireccionP.getText());
+                pr.setTelefono(jTextTelefonoP.getText());
+                pr.setCorreo(jTextCorreoP.getText());
+                
+                prDao.RegistrarProveedor(pr);
+                JOptionPane.showMessageDialog(null, "Proveedor registrado");
+         }else{
+             JOptionPane.showMessageDialog(null, "los campos estan vacios");
+         }
+        
+    }//GEN-LAST:event_btn_agregarPActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -806,6 +850,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField jText_DireccionC;
     private javax.swing.JTextField jText_TelefonoC;
     private javax.swing.JTextField jText_cedulaC;
+    private javax.swing.JTextField jText_rucPr;
     private javax.swing.JLabel lbl_CodigoPr;
     private javax.swing.JLabel lbl_NombreP;
     private javax.swing.JLabel lbl_PrecioPr;
@@ -823,10 +868,12 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_nombreC;
     private javax.swing.JLabel lbl_nombrePr;
     private javax.swing.JLabel lbl_precio;
+    private javax.swing.JLabel lbl_ruc;
     private javax.swing.JLabel lbl_stockD;
     private javax.swing.JLabel lbl_telefonoC;
     private javax.swing.JLabel lbl_telefonoP;
     private javax.swing.JTextField txtIdCliente;
+    private javax.swing.JTextField txtIdProovedor;
     // End of variables declaration//GEN-END:variables
 private void LimpiarCliente(){
     txtIdCliente.setText("");
