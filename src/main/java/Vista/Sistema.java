@@ -21,6 +21,7 @@ public class Sistema extends javax.swing.JFrame {
     public Sistema() {
         initComponents();
         this.setLocationRelativeTo(null);
+        txtIdCliente.setVisible(false);
     }
     
     public void ListarCliente(){
@@ -262,6 +263,11 @@ public class Sistema extends javax.swing.JFrame {
         }
 
         btn_actualizarC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/actualizar.png"))); // NOI18N
+        btn_actualizarC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarCActionPerformed(evt);
+            }
+        });
 
         btn_agregarC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/agregar.png"))); // NOI18N
         btn_agregarC.addActionListener(new java.awt.event.ActionListener() {
@@ -684,6 +690,33 @@ public class Sistema extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_bnt_eliminarCActionPerformed
+
+    private void btn_actualizarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarCActionPerformed
+        // TODO add your handling code here:
+        if ("".equals(txtIdCliente.getText())){
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        }
+        else{
+           
+            
+            if (!"".equals(jText_cedulaC.getText()) ||!"".equals(jTex_NombreC.getText()) || !"".equals(jText_DireccionC.getText()) || !"".equals(jText_TelefonoC.getText()) || !"".equals(jText_CorreoC.getText())){
+                
+                cl.setCedula(jText_cedulaC.getText());
+                cl.setNombre(jTex_NombreC.getText());
+                 cl.setDireccion(jText_DireccionC.getText());
+                cl.setTelefono(jText_TelefonoC.getText());
+                cl.setCorreo(jText_CorreoC.getText());
+                cl.setId(Integer.parseInt(txtIdCliente.getText()));
+                
+                client.ModificarCliente(cl);
+                LimpiarTable();
+                LimpiarCliente();
+                ListarCliente();
+            }else{
+                JOptionPane.showMessageDialog(null, "Los campos estan vacios");
+            }
+        }
+    }//GEN-LAST:event_btn_actualizarCActionPerformed
 
     /**
      * @param args the command line arguments
