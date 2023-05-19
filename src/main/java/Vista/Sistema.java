@@ -421,6 +421,11 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         btn_actualizarP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/actualizar.png"))); // NOI18N
+        btn_actualizarP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarPActionPerformed(evt);
+            }
+        });
 
         TableProveedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -843,6 +848,33 @@ public class Sistema extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null,"Selecione una fila");
          }
     }//GEN-LAST:event_btn_eliminarPActionPerformed
+
+    private void btn_actualizarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarPActionPerformed
+        // TODO add your handling code here:
+        if ("".equals(txtIdProovedor.getText())){
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        }
+        else{
+           
+            
+            if (!"".equals(jText_rucPr.getText()) ||!"".equals(jTextNombreP.getText()) || !"".equals(jTextDireccionP.getText()) || !"".equals(jTextTelefonoP.getText()) || !"".equals(jTextCorreoP.getText())){
+                
+                pr.setRuc(jText_rucPr.getText());
+                pr.setNombre(jTextNombreP.getText());
+                pr.setDireccion(jTextDireccionP.getText());
+                pr.setTelefono(jTextTelefonoP.getText());
+                pr.setCorreo(jTextCorreoP.getText());
+                pr.setId(Integer.parseInt(txtIdProovedor.getText()));
+                
+                prDao.ModificarProveedor(pr);
+                LimpiarTable();
+                LimpiarProveedor();
+                ListarProovedor();
+            }else{
+                JOptionPane.showMessageDialog(null, "Los campos estan vacios");
+            }
+        }
+    }//GEN-LAST:event_btn_actualizarPActionPerformed
 
     /**
      * @param args the command line arguments
