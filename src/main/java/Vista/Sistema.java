@@ -414,6 +414,11 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         btn_eliminarP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/borrar.png"))); // NOI18N
+        btn_eliminarP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarPActionPerformed(evt);
+            }
+        });
 
         btn_actualizarP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/actualizar.png"))); // NOI18N
 
@@ -425,6 +430,11 @@ public class Sistema extends javax.swing.JFrame {
                 "ID", "RUC", "NOMBRE", "TELEFONO", "DIRECCION", "CORREO"
             }
         ));
+        TableProveedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableProveedorMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(TableProveedor);
         if (TableProveedor.getColumnModel().getColumnCount() > 0) {
             TableProveedor.getColumnModel().getColumn(0).setPreferredWidth(30);
@@ -606,10 +616,10 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(lbl_CodigoPr)
                             .addComponent(jTextCodigoPr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(53, 53, 53)
-                        .addGroup(Vista4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_agregarPr)
-                            .addComponent(btn_eliminarPr)
-                            .addComponent(btn_actualizarPr))))
+                        .addGroup(Vista4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_eliminarPr, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btn_actualizarPr, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btn_agregarPr))))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
@@ -741,6 +751,8 @@ public class Sistema extends javax.swing.JFrame {
                 LimpiarTable();
                 ListarCliente();
             }
+        }else{
+            JOptionPane.showMessageDialog(null,"Selecione una fila");
         }
         
     }//GEN-LAST:event_bnt_eliminarCActionPerformed
@@ -783,6 +795,10 @@ public class Sistema extends javax.swing.JFrame {
                 pr.setCorreo(jTextCorreoP.getText());
                 
                 prDao.RegistrarProveedor(pr);
+                
+                LimpiarTable();
+                ListarProovedor();
+                LimpiarProveedor();
                 JOptionPane.showMessageDialog(null, "Proveedor registrado");
          }else{
              JOptionPane.showMessageDialog(null, "los campos estan vacios");
@@ -795,6 +811,38 @@ public class Sistema extends javax.swing.JFrame {
         ListarProovedor();
         jTabbedPane1.setSelectedIndex(2);
     }//GEN-LAST:event_btn_proovedoresActionPerformed
+
+    private void TableProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableProveedorMouseClicked
+        // TODO add your handling code here:
+        
+        int fila = TableProveedor.rowAtPoint(evt.getPoint());
+        
+        txtIdProovedor.setText(TableProveedor.getValueAt(fila, 0).toString());
+        jText_rucPr.setText(TableProveedor.getValueAt(fila, 1).toString());
+        jTextNombreP.setText(TableProveedor.getValueAt(fila, 2).toString());
+        jTextDireccionP.setText(TableProveedor.getValueAt(fila, 3).toString());
+        jTextTelefonoP.setText(TableProveedor.getValueAt(fila, 4).toString());
+        jTextCorreoP.setText(TableProveedor.getValueAt(fila, 5).toString());
+        
+    }//GEN-LAST:event_TableProveedorMouseClicked
+
+    private void btn_eliminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarPActionPerformed
+        // TODO add your handling code here:
+         if(!"".equals(txtIdProovedor.getText())){
+            int pregunta = JOptionPane.showConfirmDialog(null,"Esta seguro de elimar");
+            
+            if(pregunta== 0){
+                
+                int id=Integer.parseInt(txtIdProovedor.getText());
+                prDao.EliminarProveedor(id);
+                LimpiarTable();
+                ListarProovedor();
+                LimpiarProveedor();
+            }
+        }else{
+             JOptionPane.showMessageDialog(null,"Selecione una fila");
+         }
+    }//GEN-LAST:event_btn_eliminarPActionPerformed
 
     /**
      * @param args the command line arguments
@@ -909,12 +957,23 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField txtIdCliente;
     private javax.swing.JTextField txtIdProovedor;
     // End of variables declaration//GEN-END:variables
-private void LimpiarCliente(){
-    txtIdCliente.setText("");
-    jText_cedulaC.setText("");
-    jTex_NombreC.setText("");
-    jText_DireccionC.setText("");
-    jText_TelefonoC.setText("");
-    jText_CorreoC.setText("");
-}
+    private void LimpiarCliente() {
+        txtIdCliente.setText("");
+        jText_cedulaC.setText("");
+        jTex_NombreC.setText("");
+        jText_DireccionC.setText("");
+        jText_TelefonoC.setText("");
+        jText_CorreoC.setText("");
+    }
+    
+    private void LimpiarProveedor() {
+        txtIdProovedor.setText("");
+        jText_rucPr.setText("");
+        jTextNombreP.setText("");
+        jTextDireccionP.setText("");
+        jTextTelefonoP.setText("");
+        jTextCorreoP.setText("");
+    }
+
+    
 }

@@ -617,6 +617,9 @@
                   <Image iconType="3" name="/Images/borrar.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_eliminarPActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btn_actualizarP">
               <Properties>
@@ -682,6 +685,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TableProveedorMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -775,10 +781,10 @@
                                   <Component id="jTextCodigoPr" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btn_agregarPr" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="btn_eliminarPr" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="btn_actualizarPr" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btn_agregarPr" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
