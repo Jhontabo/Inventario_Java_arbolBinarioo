@@ -557,6 +557,11 @@ public class Sistema extends javax.swing.JFrame {
         }
 
         btn_agregarPr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/agregar.png"))); // NOI18N
+        btn_agregarPr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarPrActionPerformed(evt);
+            }
+        });
 
         btn_eliminarPr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/borrar.png"))); // NOI18N
 
@@ -875,6 +880,10 @@ public class Sistema extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btn_actualizarPActionPerformed
+
+    private void btn_agregarPrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarPrActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_agregarPrActionPerformed
 
     /**
      * @param args the command line arguments

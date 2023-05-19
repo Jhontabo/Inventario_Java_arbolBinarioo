@@ -5,154 +5,148 @@ package ArbolProductos;
  *
  * @author Jhontabo
  */
+
+
+
+import java.util.LinkedList;
+
 public class ArbolProductos {
-    
-    private Tad_Inventario<Producto> raiz;
 
-    /**
-     * @return the raiz
-     */
-    public Tad_Inventario<Producto> getRaiz() {
-        return raiz;
-    }
-    
-    public void insertar(Producto a){
-        if(raiz==null){
-            raiz=new Inventario_Impl<>(a);
-        }else{
-            insertar(raiz,a);
-        }
-    }
+	private Nodo raiz;
+	int numNodos;
+	int altura;
 
-    private void insertar(Tad_Inventario<Producto> raiz, Producto a) {
+	public ArbolProductos() {
+		raiz = null;
+	}
         
-        if(a.getReferencia()<raiz.obtener().getReferencia()){
-            if(raiz.izq()==null){
-                raiz.enlIzq(new Inventario_Impl<>(a));
-            }else{
-                insertar(raiz.izq(), a);
-            }
-                   
-            }else{
-            if(raiz.izq()==null){
-                raiz.enlDer(new Inventario_Impl<>(a));        
-                }else{
-                    insertar(raiz.der(),a);
-                }
-        }
-    }
-    
-    
-    String con="";
-    
-    public void mostrarTodo(Tad_Inventario<Producto>r){
-        if(r!=null){
-            visitar(r);
-            mostrarTodo(r.izq());
-            mostrarTodo(r.der());
+        public Nodo getRaiz() {
+		return raiz;
+	}
+
+	public void setRaiz(Nodo raiz) {
+		this.raiz = raiz;
+	}
+
+	public boolean agregar(Producto producto) {
+		Nodo nuevo = new Nodo(producto, null, null);
+		insertar(nuevo, raiz);
+		return true;
+	}
         
-        }
-    }
-
-    public void visitar(Tad_Inventario<Producto> r) {
-        con+="Nombre : "+ r.obtener().getNombre() + "       Tipo :"+r.obtener().getTipo()+"           Precio :"+r.obtener().getPrecio()+"                           Cantidad :"+r.obtener().getCantidad()+"       Referencia :"+r.obtener().getReferencia() +"\n";
-    }
-    
-    public String mostrar(Tad_Inventario<Producto>r){
-        con="";
-        mostrarTodo(r);
-        return con;
-    }
-    
-    
-   public Tad_Inventario<Producto>buscarPorId(int ref){
-       if(raiz==null){
-           return null;
-       }else{
-           return buscar(raiz,ref);
-       }
-   } 
-
-    private Tad_Inventario<Producto> buscar(Tad_Inventario<Producto> raiz, int ref) {
-        if(ref==raiz.obtener().getReferencia()){
-            return raiz;
-        }else{
-            if(ref<raiz.obtener().getReferencia()){
-                if(raiz.izq()==null){
-                    return null;
-                }else{
-                    return buscar(raiz.izq(),ref);
-                }
-            }else{
-                if(raiz.der()==null){
-                    return null;
-                }else{
-                    return buscar(raiz.der(), ref);
-                }
-            }
-        }
-    }
-    
-    
-    public void modificar(Tad_Inventario<Producto>r,int ref,double precio,String tipo){
-        if(buscarPorId(ref)!=null){
-            if(r.obtener().getReferencia()==ref){
-                r.obtener().setPrecio(precio);
-                r.obtener().setTipo(tipo);
-            }
-        }
-    }
-    
-    public void eliminar(int x){
-        if(buscarPorId(x)!=null){
-            raiz=eliminar(raiz,x);
-        }
-    }
-
-    private Tad_Inventario<Producto> eliminar(Tad_Inventario<Producto> raiz, int x) {
-        if(raiz.obtener().getReferencia()==x){
-            return borrar(raiz,x);
-        }else{
-            if(x<raiz.obtener().getReferencia()){
-                raiz.enlIzq(eliminar(raiz.izq(),x));
-            }else{
-                raiz.enlDer(eliminar(raiz.der(),x));
-            }
-            return raiz;
-        }
-    }
-
-    public Tad_Inventario<Producto> borrar(Tad_Inventario<Producto> raiz, int x) {
-        if(raiz.izq()==null && raiz.der() ==null){
-            return null;
-        }else{
-            if(raiz.izq()==null){
-                return raiz.der();
-            }else{
-                if(raiz.der()==null){
-                    return raiz.izq();
-                }else{
-                    Tad_Inventario<Producto>may=numeroMayor(raiz.izq());
-                    raiz.Modificar(may.obtener());
-                    raiz.enlIzq(eliminar(raiz.izq(),may.obtener().getReferencia()));
-                    return raiz;
-                }
-            }
-        }
-    }
-
-    public Tad_Inventario<Producto> numeroMayor(Tad_Inventario<Producto> izq) {
         
-        if(raiz!=null){
-            if(raiz.der()!=null){
-                return numeroMayor(raiz.der());
-            }else{
-                return raiz;
-            }
-        }else{
-            return null;
-        }
-    }
-    
+        public boolean eliminar(Producto producto) {
+		Nodo nuevo = new Nodo(producto, null, null);
+		eliminar(nuevo, raiz,null,true);
+		return true;
+	}
+
+	public void insertar(Nodo nuevo, Nodo pivote) {
+		if (this.raiz == null) {
+			raiz = nuevo;
+		} else {
+			if (nuevo.getProducto().getId() == pivote.getProducto().getId()) {
+				nuevo = null;
+			}
+			if (nuevo.getProducto().getId() <= pivote.getProducto().getId()) {
+				if (pivote.getIzquierdo() == null) {
+					pivote.setIzquierdo(nuevo);
+				} else {
+					insertar(nuevo, pivote.getIzquierdo());
+				}
+			} else {
+				if (pivote.getDerecho() == null) {
+					pivote.setDerecho(nuevo);
+				} else {
+					insertar(nuevo, pivote.getDerecho());
+				}
+			}
+		}
+	}
+
+	public LinkedList<Producto> preOrden() {
+		LinkedList<Producto> recorrido = new LinkedList<>();
+		preOrden(raiz, recorrido);
+		return recorrido;
+	}
+
+	public void preOrden(Nodo aux, LinkedList<Producto> recorrido) {
+		if (aux != null) {
+			recorrido.add(aux.getProducto());
+			preOrden(aux.getIzquierdo(), recorrido);
+			preOrden(aux.getDerecho(), recorrido);
+		}
+	}
+
+	public LinkedList<Producto> inOrden() {
+		LinkedList<Producto> recorrido = new LinkedList<>();
+		inOrden(raiz, recorrido);
+		return recorrido;
+	}
+
+	public void inOrden(Nodo aux, LinkedList<Producto> recorrido) {
+		if (aux != null) {
+			inOrden(aux.getIzquierdo(), recorrido);
+			recorrido.add(aux.getProducto());
+			inOrden(aux.getDerecho(), recorrido);
+		}
+	}
+
+	public LinkedList<Producto> postOrden() {
+		LinkedList<Producto> recorrido = new LinkedList<>();
+		postOrden(raiz, recorrido);
+		return recorrido;
+	}
+
+	public void postOrden(Nodo aux, LinkedList<Producto> recorrido) {
+		if (aux != null) {
+			postOrden(aux.getIzquierdo(), recorrido);
+			postOrden(aux.getDerecho(), recorrido);
+			recorrido.add(aux.getProducto());
+		}
+	}
+        
+        
+        public void eliminar(Nodo nuevo, Nodo pivote, Nodo padre, boolean esHijoIzquierdo) {
+		if (this.raiz.getProducto().getId() == nuevo.getProducto().getId()) {
+			this.raiz = null;
+		} else {
+			if (nuevo.getProducto().getId() == pivote.getProducto().getId()) {
+				if (esHijoIzquierdo) {
+					padre.setIzquierdo(null);
+				} else {
+					padre.setDerecho(null);
+				}
+			}
+			if (nuevo.getProducto().getId() <= pivote.getProducto().getId()) {
+				if (pivote.getIzquierdo() == null) {
+					pivote.setIzquierdo(null);
+				} else {
+					eliminar(nuevo, pivote.getIzquierdo(), pivote, true);
+				}
+			} else {
+				if (pivote.getDerecho() == null) {
+					pivote.setDerecho(null);
+				} else {
+					eliminar(nuevo, pivote.getDerecho(), pivote, false);
+				}
+			}
+		}
+	}
+
+	public boolean existe(int id) {
+		Nodo aux = raiz;
+		while (aux != null) {
+			if (id == aux.getProducto().getId()) {
+				return true;
+			} else if (id > aux.getProducto().getId()) {
+				aux = aux.getDerecho();
+			} else {
+				aux = aux.getIzquierdo();
+			}
+		}
+		return false;
+	}
+
+	
 }
- 
