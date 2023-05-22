@@ -43,10 +43,12 @@ public class Controlador {
   	  ps.setInt(4, producto.getCantidad());
   	  ps.setDouble(5, producto.getPrecio());
   	  ps.execute();
+          miArbol.agregarNodo(producto);
           return true;
         } catch (SQLException e)
         {
             JOptionPane.showMessageDialog(null, e.toString());
+            
             return false;
         }finally{
             try
@@ -61,29 +63,29 @@ public class Controlador {
     }
     
     
-     public boolean EliminarProductos(int codigo){
-       String sql="DELETE FROM productos WHERE id =?";
-       
-        try
-        {
-            ps=con.prepareStatement(sql);
-            ps.setInt(1, codigo);
-            ps.execute();
-            return miArbol.eliminarProducto(codigo);
-        } catch (SQLException e)
-        {
-            System.out.println(e.toString());
-            return false;
-        }finally{
-           try
-           {
-               con.close();
-           } catch (SQLException ex)
-           {
-               System.out.println(ex.toString());
-           }
-        }
+     public boolean EliminarProductos(int id) {
+    String sql = "DELETE FROM productos WHERE id = ?";
+    try {
+        con = cn.getConnection();
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
+        ps.execute();
+        return miArbol.eliminarProducto(id); // Eliminar el producto del árbol
+    } catch (SQLException e) {
+        System.out.println(e.toString());
+        return false;
+    } finally {
+        // Código de cierre de conexión y manejo de excepciones
+         try
+            {
+                con.close();
+            } catch (SQLException e)
+            {
+                System.out.println(e.toString());
+            }
     }
+}
+
      
       public List ListarPr(){
         List<Producto> ListaPr = new ArrayList();

@@ -20,13 +20,13 @@ public class ArbolProductos {
     public void insertarNodoProducto(Nodo nuevoNodo, Nodo nodoPadre) {
         if (raiz == null) {
             raiz = nuevoNodo;
-        } else if ((nuevoNodo.getProducto().getCodigo()) < (nodoPadre.getProducto().getCodigo())) {
+        } else if ((nuevoNodo.getProducto().getId()) < (nodoPadre.getProducto().getId())) {
             if (nodoPadre.getIzquierdo()== null) {
                 nodoPadre.setIzquierdo(nuevoNodo);
             } else {
                 insertarNodoProducto(nuevoNodo, nodoPadre.getIzquierdo());
             }
-        } else if ((nuevoNodo.getProducto().getCodigo()) > (nodoPadre.getProducto().getCodigo())) {
+        } else if ((nuevoNodo.getProducto().getId()) > (nodoPadre.getProducto().getId())) {
             if (nodoPadre.getDerecho()== null) {
                 nodoPadre.setDerecho(nuevoNodo);
             } else {
@@ -88,9 +88,9 @@ public class ArbolProductos {
     public boolean existeNodo(Producto producto) {
         Nodo aux = raiz;
         while (aux != null) {
-            if (producto.getCodigo() == (aux.getProducto().getCodigo())) {
+            if (producto.getId() == (aux.getProducto().getId())) {
                 return true;
-            } else if (producto.getCodigo() > (aux.getProducto().getCodigo())) {
+            } else if (producto.getId() > (aux.getProducto().getId())) {
                 aux = aux.getDerecho();
             } else {
                 aux = aux.getIzquierdo();
@@ -99,11 +99,10 @@ public class ArbolProductos {
         return false;
     }
 
-
-    public Producto buscarProducto(int codigo) {
+    public Producto buscarProducto(int id) {
         Nodo nodoActual = raiz;
-        while (nodoActual != null && !(nodoActual.getProducto().getCodigo() == codigo)) {
-            if (codigo < nodoActual.getProducto().getCodigo()) {
+        while (nodoActual != null && !(nodoActual.getProducto().getId() == id)) {
+            if (id < nodoActual.getProducto().getId()) {
                 nodoActual = nodoActual.getIzquierdo();
             } else {
                 nodoActual = nodoActual.getDerecho();
@@ -116,19 +115,19 @@ public class ArbolProductos {
         }
     }
 
-    public boolean eliminarProducto(int codigo) {
-        raiz = eliminarProducto(raiz, codigo);
+    public boolean eliminarProducto(int id) {
+        raiz = eliminarProducto(raiz, id);
         return true;
     }
 
-    private Nodo eliminarProducto(Nodo nodoActual, int codigo) {
+    private Nodo eliminarProducto(Nodo nodoActual, int id) {
         if (nodoActual == null) {
             return nodoActual;
         }
-        if (codigo == nodoActual.getProducto().getCodigo()) {
-            nodoActual.setIzquierdo(eliminarProducto(nodoActual.getIzquierdo(), codigo));
-        } else if (codigo > nodoActual.getProducto().getCodigo()) {
-            nodoActual.setDerecho(eliminarProducto(nodoActual.getDerecho(), codigo));
+        if (id == nodoActual.getProducto().getId()) {
+            nodoActual.setIzquierdo(eliminarProducto(nodoActual.getIzquierdo(), id));
+        } else if (id > nodoActual.getProducto().getId()) {
+            nodoActual.setDerecho(eliminarProducto(nodoActual.getDerecho(), id));
         } else {
             if (nodoActual.getIzquierdo()== null) {
                 return nodoActual.getDerecho();
@@ -137,7 +136,7 @@ public class ArbolProductos {
             }
             Nodo sucesor = encontrarSucesor(nodoActual.getDerecho());
             nodoActual.setProducto(sucesor.getProducto());
-            nodoActual.setDerecho(eliminarProducto(nodoActual.getDerecho(), sucesor.getProducto().getCodigo()));
+            nodoActual.setDerecho(eliminarProducto(nodoActual.getDerecho(), sucesor.getProducto().getId()));
         }
         return nodoActual;
     }
