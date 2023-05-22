@@ -1,152 +1,152 @@
-
 package ArbolProductos;
 
-/**
- *
- * @author Jhontabo
- */
-
-
-
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArbolProductos {
+    private Nodo raiz;
+    int num_nodos;
+    int alt;
 
-	private Nodo raiz;
-	int numNodos;
-	int altura;
+    public ArbolProductos() {
+        raiz = null;
+    }
 
-	public ArbolProductos() {
-		raiz = null;
-	}
-        
-        public Nodo getRaiz() {
-		return raiz;
-	}
+    public boolean agregarNodo(Producto producto) {
+        Nodo nuevo = new Nodo(producto, null, null);
+        insertarNodoProducto(nuevo, raiz);
+        return true;
+    }
 
-	public void setRaiz(Nodo raiz) {
-		this.raiz = raiz;
-	}
+    public void insertarNodoProducto(Nodo nuevoNodo, Nodo nodoPadre) {
+        if (raiz == null) {
+            raiz = nuevoNodo;
+        } else if ((nuevoNodo.getProducto().getCodigo()) < (nodoPadre.getProducto().getCodigo())) {
+            if (nodoPadre.getIzquierdo()== null) {
+                nodoPadre.setIzquierdo(nuevoNodo);
+            } else {
+                insertarNodoProducto(nuevoNodo, nodoPadre.getIzquierdo());
+            }
+        } else if ((nuevoNodo.getProducto().getCodigo()) > (nodoPadre.getProducto().getCodigo())) {
+            if (nodoPadre.getDerecho()== null) {
+                nodoPadre.setDerecho(nuevoNodo);
+            } else {
+                insertarNodoProducto(nuevoNodo, nodoPadre.getDerecho());
+            }
+        }
+    }
 
-	public boolean agregar(Producto producto) {
-		Nodo nuevo = new Nodo(producto, null, null);
-		insertar(nuevo, raiz);
-		return true;
-	}
-        
-        
-        public boolean eliminar(Producto producto) {
-		Nodo nuevo = new Nodo(producto, null, null);
-		eliminar(nuevo, raiz,null,true);
-		return true;
-	}
+    public Nodo getRaiz() {
+        return raiz;
+    }
 
-	public void insertar(Nodo nuevo, Nodo pivote) {
-		if (this.raiz == null) {
-			raiz = nuevo;
-		} else {
-			if (nuevo.getProducto().getId() == pivote.getProducto().getId()) {
-				nuevo = null;
-			}
-			if (nuevo.getProducto().getId() <= pivote.getProducto().getId()) {
-				if (pivote.getIzquierdo() == null) {
-					pivote.setIzquierdo(nuevo);
-				} else {
-					insertar(nuevo, pivote.getIzquierdo());
-				}
-			} else {
-				if (pivote.getDerecho() == null) {
-					pivote.setDerecho(nuevo);
-				} else {
-					insertar(nuevo, pivote.getDerecho());
-				}
-			}
-		}
-	}
+    public void setRaiz(Nodo raiz) {
+        this.raiz = raiz;
+    }
 
-	public LinkedList<Producto> preOrden() {
-		LinkedList<Producto> recorrido = new LinkedList<>();
-		preOrden(raiz, recorrido);
-		return recorrido;
-	}
+    public List<Producto> recorrerPreorden() {
+        List<Producto> productos = new ArrayList<>();
+        recorrerPreorden(raiz, productos);
+        return productos;
+    }
 
-	public void preOrden(Nodo aux, LinkedList<Producto> recorrido) {
-		if (aux != null) {
-			recorrido.add(aux.getProducto());
-			preOrden(aux.getIzquierdo(), recorrido);
-			preOrden(aux.getDerecho(), recorrido);
-		}
-	}
+    private void recorrerPreorden(Nodo nodoActual, List<Producto> productos) {
+        if (nodoActual != null) {
+            productos.add(nodoActual.getProducto());
+            recorrerPreorden(nodoActual.getIzquierdo(), productos);
+            recorrerPreorden(nodoActual.getDerecho(), productos);
+        }
+    }
 
-	public LinkedList<Producto> inOrden() {
-		LinkedList<Producto> recorrido = new LinkedList<>();
-		inOrden(raiz, recorrido);
-		return recorrido;
-	}
+    public List<Producto> recorrerInorden() {
+        List<Producto> productos = new ArrayList<>();
+        recorrerInorden(raiz, productos);
+        return productos;
+    }
 
-	public void inOrden(Nodo aux, LinkedList<Producto> recorrido) {
-		if (aux != null) {
-			inOrden(aux.getIzquierdo(), recorrido);
-			recorrido.add(aux.getProducto());
-			inOrden(aux.getDerecho(), recorrido);
-		}
-	}
+    private void recorrerInorden(Nodo nodoActual, List<Producto> productos) {
+        if (nodoActual != null) {
+            recorrerInorden(nodoActual.getIzquierdo(), productos);
+            productos.add(nodoActual.getProducto());
+            recorrerInorden(nodoActual.getDerecho(), productos);
+        }
+    }
 
-	public LinkedList<Producto> postOrden() {
-		LinkedList<Producto> recorrido = new LinkedList<>();
-		postOrden(raiz, recorrido);
-		return recorrido;
-	}
+    public List<Producto> recorrerPostorden() {
+        List<Producto> productos = new ArrayList<>();
+        recorrerPostorden(raiz, productos);
+        return productos;
+    }
 
-	public void postOrden(Nodo aux, LinkedList<Producto> recorrido) {
-		if (aux != null) {
-			postOrden(aux.getIzquierdo(), recorrido);
-			postOrden(aux.getDerecho(), recorrido);
-			recorrido.add(aux.getProducto());
-		}
-	}
-        
-        
-        public void eliminar(Nodo nuevo, Nodo pivote, Nodo padre, boolean esHijoIzquierdo) {
-		if (this.raiz.getProducto().getId() == nuevo.getProducto().getId()) {
-			this.raiz = null;
-		} else {
-			if (nuevo.getProducto().getId() == pivote.getProducto().getId()) {
-				if (esHijoIzquierdo) {
-					padre.setIzquierdo(null);
-				} else {
-					padre.setDerecho(null);
-				}
-			}
-			if (nuevo.getProducto().getId() <= pivote.getProducto().getId()) {
-				if (pivote.getIzquierdo() == null) {
-					pivote.setIzquierdo(null);
-				} else {
-					eliminar(nuevo, pivote.getIzquierdo(), pivote, true);
-				}
-			} else {
-				if (pivote.getDerecho() == null) {
-					pivote.setDerecho(null);
-				} else {
-					eliminar(nuevo, pivote.getDerecho(), pivote, false);
-				}
-			}
-		}
-	}
+    private void recorrerPostorden(Nodo nodoActual, List<Producto> productos) {
+        if (nodoActual != null) {
+            recorrerPostorden(nodoActual.getIzquierdo(), productos);
+            recorrerPostorden(nodoActual.getDerecho(), productos);
+            productos.add(nodoActual.getProducto());
+        }
+    }
 
-	public boolean existe(int id) {
-		Nodo aux = raiz;
-		while (aux != null) {
-			if (id == aux.getProducto().getId()) {
-				return true;
-			} else if (id > aux.getProducto().getId()) {
-				aux = aux.getDerecho();
-			} else {
-				aux = aux.getIzquierdo();
-			}
-		}
-		return false;
-	}
+    public boolean existeNodo(Producto producto) {
+        Nodo aux = raiz;
+        while (aux != null) {
+            if (producto.getCodigo() == (aux.getProducto().getCodigo())) {
+                return true;
+            } else if (producto.getCodigo() > (aux.getProducto().getCodigo())) {
+                aux = aux.getDerecho();
+            } else {
+                aux = aux.getIzquierdo();
+            }
+        }
+        return false;
+    }
 
-	
+
+    public Producto buscarProducto(int codigo) {
+        Nodo nodoActual = raiz;
+        while (nodoActual != null && !(nodoActual.getProducto().getCodigo() == codigo)) {
+            if (codigo < nodoActual.getProducto().getCodigo()) {
+                nodoActual = nodoActual.getIzquierdo();
+            } else {
+                nodoActual = nodoActual.getDerecho();
+            }
+        }
+        if (nodoActual != null) {
+            return nodoActual.getProducto();
+        } else {
+            return null;
+        }
+    }
+
+    public boolean eliminarProducto(int codigo) {
+        raiz = eliminarProducto(raiz, codigo);
+        return true;
+    }
+
+    private Nodo eliminarProducto(Nodo nodoActual, int codigo) {
+        if (nodoActual == null) {
+            return nodoActual;
+        }
+        if (codigo == nodoActual.getProducto().getCodigo()) {
+            nodoActual.setIzquierdo(eliminarProducto(nodoActual.getIzquierdo(), codigo));
+        } else if (codigo > nodoActual.getProducto().getCodigo()) {
+            nodoActual.setDerecho(eliminarProducto(nodoActual.getDerecho(), codigo));
+        } else {
+            if (nodoActual.getIzquierdo()== null) {
+                return nodoActual.getDerecho();
+            } else if (nodoActual.getDerecho()== null) {
+                return nodoActual.getIzquierdo();
+            }
+            Nodo sucesor = encontrarSucesor(nodoActual.getDerecho());
+            nodoActual.setProducto(sucesor.getProducto());
+            nodoActual.setDerecho(eliminarProducto(nodoActual.getDerecho(), sucesor.getProducto().getCodigo()));
+        }
+        return nodoActual;
+    }
+
+    private Nodo encontrarSucesor(Nodo nodoActual) {
+        while (nodoActual.getIzquierdo()!= null) {
+            nodoActual = nodoActual.getIzquierdo();
+        }
+        return nodoActual;
+    }
 }

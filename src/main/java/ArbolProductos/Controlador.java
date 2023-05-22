@@ -1,59 +1,143 @@
 
 package ArbolProductos;
 
-/**
- *
- * @author Jhontabo
- */
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JPanel;
 
 
-import java.util.LinkedList;
+import ArbolProductos.ArbolProductos;
+import ArbolProductos.Producto;
+import Modelo.Conexion;
+import javax.swing.JOptionPane;
+
 
 public class Controlador {
 
-    ArbolProductos arbolProductos = new ArbolProductos();
+    ArbolProductos miArbol = new ArbolProductos();
+    
+    Conexion cn= new Conexion();
+    Connection con;
+    PreparedStatement ps;
+    ResultSet rs;
 
     public Controlador() {
     }
-
-    public boolean agregarProducto(Producto producto) {
-        return arbolProductos.agregar(producto);
-    }
-
-    public boolean eliminarProducto(int id) {
-        Producto producto = new Producto(id, "", "", "", 0, 0.0);
-        return arbolProductos.eliminar(producto);
-    }
-
-    public String preOrden() {
-        LinkedList<Producto> productos = arbolProductos.preOrden();
-        return recorrido(productos, "PreOrden");
-    }
-
-    public String inOrden() {
-        LinkedList<Producto> productos = arbolProductos.inOrden();
-        return recorrido(productos, "InOrden");
-    }
-
-    public String postOrden() {
-        LinkedList<Producto> productos = arbolProductos.postOrden();
-        return recorrido(productos, "PosOrden");
-    }
-
-    private String recorrido(LinkedList<Producto> productos, String msg) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(msg).append("\n");
-        for (Producto producto : productos) {
-            builder.append("\t").append(producto.toString()).append("\n");
+    
+    
+    public boolean insertar(Producto producto) {
+  	  String sql = "INSERT INTO productos (codigo, nombre,tipo,cantidad,precio) VALUES (?, ?, ?, ?, ?)";
+  	  
+          try
+        {
+  	  ps.setInt(1, producto.getCodigo());
+  	  ps.setString(2, producto.getNombre());
+  	  ps.setString(3, producto.getTipo());
+  	  ps.setInt(4, producto.getCantidad());
+  	  ps.setDouble(5, producto.getPrecio());
+  	  ps.execute();
+          return true;
+        } catch (SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, e.toString());
+            return false;
+        }finally{
+            try
+            {
+                con.close();
+            } catch (SQLException e)
+            {
+                System.out.println(e.toString());
+            }
         }
-        return builder.toString();
+        
     }
+    
+    
+     public boolean EliminarProductos(int codigo){
+       String sql="DELETE FROM productos WHERE id =?";
+       
+        try
+        {
+            ps=con.prepareStatement(sql);
+            ps.setInt(1, codigo);
+            ps.execute();
+            return miArbol.eliminarProducto(codigo);
+        } catch (SQLException e)
+        {
+            System.out.println(e.toString());
+            return false;
+        }finally{
+           try
+           {
+               con.close();
+           } catch (SQLException ex)
+           {
+               System.out.println(ex.toString());
+           }
+        }
+    }
+     
+      public List ListarPr(){
+        List<Producto> ListaPr = new ArrayList();
+        String sql="SELECT * FROM productos";
+        try
+        {
+            con=cn.getConnection();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            
+            while(rs.next()){
+                
+                int codigo=rs.getInt("codigo");
+                String nombre=rs.getString("nombre");
+                String tipo=rs.getString("tipo");
+                int cantidad =rs.getInt("cantidad");
+                double precio=rs.getDouble("precio");
+                int id=rs.getInt("id");
+                ListaPr.add(new Producto(id,codigo, nombre, tipo, cantidad,precio));
+            }
+        } catch (SQLException e)
+        {
+            System.out.println(e.toString());
+        }
+        return ListaPr;
+    }
+      
+    
 
-    public String buscarProducto(int id) {
-        Producto producto = new Producto(id, "", "", "", 0, 0.0);
-        boolean existe = arbolProductos.existe(id);
-        String resultado = "El producto con ID " + id + "\n";
-        resultado += existe ? "Se encuentra en el inventario" : "No se encuentra en el inventario";
-        return resultado;
+    
+      public boolean ModificarProducto(Producto pr){
+        String sql ="UPDATE Productos SET codigo=?,nombre=?,tipo=?,cantidad=?,preicio=? WHERE id=?"; 
+        
+        try
+        {
+           //con =cn.getConnection();
+           ps=con.prepareStatement(sql);
+           ps.setInt(1, pr.getCodigo());
+           ps.setString(2,pr.getNombre());
+           ps.setString(3, pr.getTipo());
+           ps.setInt(4, pr.getCantidad());
+           ps.setDouble(5, pr.getPrecio());
+           ps.setInt(6,pr.getId());
+           ps.execute();
+           return true;
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(null, e.toString());
+            return false;
+        }finally{
+            try
+            {
+                con.close();
+            } catch (SQLException e)
+            {
+                System.out.println(e.toString());
+            }
+        }
     }
 }

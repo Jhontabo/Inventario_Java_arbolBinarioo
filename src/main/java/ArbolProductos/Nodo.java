@@ -13,8 +13,8 @@ public class Nodo {
   
     public Nodo(Producto producto,Nodo izquierdo,Nodo derecho) {
         this.producto = producto;
-        this.izquierdo = null;
-        this.derecho = null;
+        this.izquierdo = izquierdo;
+        this.derecho = derecho;
     }
   
     public Producto getProducto() {

@@ -7,7 +7,7 @@ package ArbolProductos;
  */
 public class Producto {
     private int id;
-    private String codigo;
+    private int codigo;
     private String nombre;
     private String tipo;
     private int cantidad;
@@ -16,7 +16,7 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int id, String codigo, String nombre, String tipo, int cantidad, double precio) {
+    public Producto(int id, int codigo, String nombre, String tipo, int cantidad, double precio) {
         this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
@@ -37,11 +37,11 @@ public class Producto {
         this.id = id;
     }
 
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 

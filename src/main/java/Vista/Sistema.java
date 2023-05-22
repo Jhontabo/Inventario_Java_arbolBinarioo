@@ -1,6 +1,8 @@
 
 package Vista;
 
+import ArbolProductos.Controlador;
+import ArbolProductos.Producto;
 import Modelo.Cliente;
 import Modelo.ClienteDao;
 import Modelo.Proveedor;
@@ -13,6 +15,9 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Jhontabo
  */
+
+    
+    
 public class Sistema extends javax.swing.JFrame {
 
     
@@ -20,6 +25,8 @@ public class Sistema extends javax.swing.JFrame {
     ClienteDao client= new ClienteDao();
     Proveedor pr= new Proveedor();
     ProveedorDao prDao = new ProveedorDao();
+    Producto prd= new Producto();
+    Controlador controlador= new Controlador() ;
     DefaultTableModel model= new DefaultTableModel();
     
     public Sistema() {
@@ -27,6 +34,7 @@ public class Sistema extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         txtIdCliente.setVisible(false);
     }
+
     
     public void ListarCliente(){
         List<Cliente> ListarCl=client.Listarcliente();
@@ -41,6 +49,26 @@ public class Sistema extends javax.swing.JFrame {
             ob[3]=ListarCl.get(i).getDireccion();
             ob[4]=ListarCl.get(i).getTelefono();
             ob[5]=ListarCl.get(i).getCorreo();
+            model.addRow(ob);
+            
+        }
+        
+        TableCliente.setModel(model);
+    }
+    
+     public void ListarProducto(){
+        List<Producto> ListarPrd=controlador.ListarPr();
+        model = (DefaultTableModel) TableCliente.getModel();
+        Object [] ob = new Object[6];
+        
+        for(int i=0; i<ListarPrd.size();i++){
+            
+            ob[0]=ListarPrd.get(i).getId();
+            ob[1]=ListarPrd.get(i).getCodigo();
+            ob[2]=ListarPrd.get(i).getNombre();
+            ob[3]=ListarPrd.get(i).getTipo();
+            ob[4]=ListarPrd.get(i).getCantidad();
+            ob[5]=ListarPrd.get(i).getPrecio();
             model.addRow(ob);
             
         }
@@ -144,10 +172,11 @@ public class Sistema extends javax.swing.JFrame {
         jTextCantidadPr = new javax.swing.JTextField();
         jTextCodigoPr = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        TableProducto = new javax.swing.JTable();
         btn_agregarPr = new javax.swing.JButton();
         btn_eliminarPr = new javax.swing.JButton();
         btn_actualizarPr = new javax.swing.JButton();
+        jTextIdProducto = new javax.swing.JTextField();
         BarraLateral = new javax.swing.JPanel();
         btn_nuevaVenta = new javax.swing.JButton();
         btn_clientes = new javax.swing.JButton();
@@ -539,21 +568,27 @@ public class Sistema extends javax.swing.JFrame {
 
         lbl_nombrePr.setText("Nombre :");
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        TableProducto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "NOMBRE", "TIPO", "PRECIO", "STOCK", "CODIGO"
+                "ID", "CODIGO", "NOMBRE", "TIPO", "PRECIO", "CANTIDAD"
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
-        if (jTable4.getColumnModel().getColumnCount() > 0) {
-            jTable4.getColumnModel().getColumn(0).setPreferredWidth(100);
-            jTable4.getColumnModel().getColumn(1).setPreferredWidth(50);
-            jTable4.getColumnModel().getColumn(2).setPreferredWidth(50);
-            jTable4.getColumnModel().getColumn(3).setPreferredWidth(50);
-            jTable4.getColumnModel().getColumn(4).setPreferredWidth(50);
+        TableProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableProductoMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(TableProducto);
+        if (TableProducto.getColumnModel().getColumnCount() > 0) {
+            TableProducto.getColumnModel().getColumn(0).setPreferredWidth(30);
+            TableProducto.getColumnModel().getColumn(1).setPreferredWidth(50);
+            TableProducto.getColumnModel().getColumn(2).setPreferredWidth(100);
+            TableProducto.getColumnModel().getColumn(3).setPreferredWidth(50);
+            TableProducto.getColumnModel().getColumn(4).setPreferredWidth(50);
+            TableProducto.getColumnModel().getColumn(5).setPreferredWidth(50);
         }
 
         btn_agregarPr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/agregar.png"))); // NOI18N
@@ -564,6 +599,11 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         btn_eliminarPr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/borrar.png"))); // NOI18N
+        btn_eliminarPr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarPrActionPerformed(evt);
+            }
+        });
 
         btn_actualizarPr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/actualizar.png"))); // NOI18N
 
@@ -590,11 +630,14 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(jTextPrecioPr))
                         .addGap(15, 15, 15))
                     .addGroup(Vista4Layout.createSequentialGroup()
-                        .addComponent(btn_agregarPr, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_eliminarPr, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_actualizarPr, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(Vista4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(Vista4Layout.createSequentialGroup()
+                                .addComponent(btn_agregarPr, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_eliminarPr, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_actualizarPr, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -629,8 +672,10 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(Vista4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn_eliminarPr, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btn_actualizarPr, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btn_agregarPr))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                            .addComponent(btn_agregarPr))
+                        .addGap(27, 27, 27)
+                        .addComponent(jTextIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Vista4", Vista4);
@@ -661,6 +706,11 @@ public class Sistema extends javax.swing.JFrame {
 
         btn_productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Productos.png"))); // NOI18N
         btn_productos.setText("Productos");
+        btn_productos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_productosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout BarraLateralLayout = new javax.swing.GroupLayout(BarraLateral);
         BarraLateral.setLayout(BarraLateralLayout);
@@ -881,9 +931,69 @@ public class Sistema extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_actualizarPActionPerformed
 
+    
+
     private void btn_agregarPrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarPrActionPerformed
         // TODO add your handling code here:
+                if (!"".equals(jTextCodigoPr.getText()) || !"".equals(jTextNombrePr.getText()) || !"".equals(jTextTipoPr.getText()) || !"".equals(jTextCantidadPr.getText()) || !"".equals(jTextPrecioPr.getText()))
+        {
+
+            prd.setCodigo(Integer.parseInt(jTextCodigoPr.getText()));
+            prd.setNombre(jTextNombrePr.getText());
+            prd.setTipo(jTextTipoPr.getText());
+            prd.setCantidad(Integer.parseInt(jTextCantidadPr.getText()));
+            prd.setPrecio(Double.parseDouble(jTextPrecioPr.getText()));
+
+            controlador.insertar(prd);
+
+            LimpiarTable();
+            ListarProducto();
+            LimpiarProdcuto();
+            JOptionPane.showMessageDialog(null, "Producto registrado");
+        } else
+        {
+            JOptionPane.showMessageDialog(null, "los campos estan vacios");
+        }
     }//GEN-LAST:event_btn_agregarPrActionPerformed
+
+    private void TableProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableProductoMouseClicked
+        // TODO add your handling code here:
+            int fila = TableProducto.rowAtPoint(evt.getPoint());
+        
+        jTextIdProducto.setText(TableProducto.getValueAt(fila, 0).toString());
+        jTextCodigoPr.setText(TableProducto.getValueAt(fila, 1).toString());
+        jTextNombrePr.setText(TableProducto.getValueAt(fila, 2).toString());
+        jTextTipoPr.setText(TableProducto.getValueAt(fila, 3).toString());
+        jTextCantidadPr.setText(TableProducto.getValueAt(fila, 4).toString());
+        jTextPrecioPr.setText(TableProducto.getValueAt(fila, 5).toString());
+    }//GEN-LAST:event_TableProductoMouseClicked
+
+    private void btn_eliminarPrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarPrActionPerformed
+        // TODO add your handling code here:
+        
+         if(!"".equals(jTextIdProducto.getText())){
+            int pregunta = JOptionPane.showConfirmDialog(null,"Esta seguro de elimar");
+            
+            if(pregunta== 0){
+                
+                int id=Integer.parseInt(jTextIdProducto.getText());
+                controlador.EliminarProductos(id);
+                LimpiarTable();
+                ListarProducto();
+                LimpiarProdcuto();
+            }
+        }else{
+             JOptionPane.showMessageDialog(null,"Selecione una fila");
+         }
+    }//GEN-LAST:event_btn_eliminarPrActionPerformed
+
+    private void btn_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_productosActionPerformed
+        // TODO add your handling code here:
+        
+       LimpiarTable();
+       ListarProducto();
+       jTabbedPane1.setSelectedIndex(3);
+    }//GEN-LAST:event_btn_productosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -934,6 +1044,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField JText_Precio;
     private javax.swing.JTextField JText_StockD;
     private javax.swing.JTable TableCliente;
+    private javax.swing.JTable TableProducto;
     private javax.swing.JTable TableProveedor;
     private javax.swing.JPanel Vista1;
     private javax.swing.JPanel Vista2;
@@ -958,12 +1069,12 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTex_NombreC;
     private javax.swing.JTextField jTextCantidadPr;
     private javax.swing.JTextField jTextCodigoPr;
     private javax.swing.JTextField jTextCorreoP;
     private javax.swing.JTextField jTextDireccionP;
+    private javax.swing.JTextField jTextIdProducto;
     private javax.swing.JTextField jTextNombreP;
     private javax.swing.JTextField jTextNombrePr;
     private javax.swing.JTextField jTextPrecioPr;
@@ -1015,6 +1126,17 @@ public class Sistema extends javax.swing.JFrame {
         jTextTelefonoP.setText("");
         jTextCorreoP.setText("");
     }
+    
+     private void LimpiarProdcuto() {
+        jTextIdProducto.setText("");
+        jTextCorreoP.setText("");
+        jTextNombrePr.setText("");
+        jTextTipoPr.setText("");
+        jTextCantidadPr.setText("");
+        jTextPrecioPr.setText("");
+    }
+    
+    
 
     
 }
