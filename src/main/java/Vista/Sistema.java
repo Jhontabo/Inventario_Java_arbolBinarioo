@@ -58,7 +58,7 @@ public class Sistema extends javax.swing.JFrame {
     
      public void ListarProducto(){
         List<Producto> ListarPrd=controlador.ListarPr();
-        model = (DefaultTableModel) TableCliente.getModel();
+        model = (DefaultTableModel) TableProducto.getModel();
         Object [] ob = new Object[6];
         
         for(int i=0; i<ListarPrd.size();i++){
@@ -606,6 +606,11 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         btn_actualizarPr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/actualizar.png"))); // NOI18N
+        btn_actualizarPr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarPrActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout Vista4Layout = new javax.swing.GroupLayout(Vista4);
         Vista4.setLayout(Vista4Layout);
@@ -944,7 +949,7 @@ public class Sistema extends javax.swing.JFrame {
             prd.setCantidad(Integer.parseInt(jTextCantidadPr.getText()));
             prd.setPrecio(Double.parseDouble(jTextPrecioPr.getText()));
 
-            controlador.insertar(prd);
+            controlador.AgregarProducto(prd);
 
             LimpiarTable();
             ListarProducto();
@@ -994,6 +999,33 @@ public class Sistema extends javax.swing.JFrame {
        ListarProducto();
        jTabbedPane1.setSelectedIndex(3);
     }//GEN-LAST:event_btn_productosActionPerformed
+
+    private void btn_actualizarPrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarPrActionPerformed
+        // TODO add your handling code here:
+        if ("".equals(jTextIdProducto.getText())){
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        }
+        else{
+           
+            
+            if (!"".equals(jTextCodigoPr.getText()) ||!"".equals(jTextNombrePr.getText()) || !"".equals(jTextTipoPr.getText()) || !"".equals(jTextCantidadPr.getText()) || !"".equals(jTextPrecioPr.getText())){
+                
+                prd.setCodigo(Integer.parseInt(jTextCodigoPr.getText()));
+                prd.setNombre(jTextNombrePr.getText());
+                prd.setTipo(jTextTipoPr.getText());
+                prd.setCantidad(Integer.parseInt(jTextCantidadPr.getText()));
+                prd.setPrecio(Double.parseDouble(jTextPrecioPr.getText()));
+                prd.setId(Integer.parseInt(jTextIdProducto.getText()));
+                
+                controlador.ModificarProducto(prd);
+                LimpiarTable();
+                LimpiarProdcuto();
+                ListarProducto();
+            }else{
+                JOptionPane.showMessageDialog(null, "Los campos estan vacios");
+            }
+        }
+    }//GEN-LAST:event_btn_actualizarPrActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1129,7 +1161,7 @@ public class Sistema extends javax.swing.JFrame {
     
      private void LimpiarProdcuto() {
         jTextIdProducto.setText("");
-        jTextCorreoP.setText("");
+        jTextCodigoPr.setText("");
         jTextNombrePr.setText("");
         jTextTipoPr.setText("");
         jTextCantidadPr.setText("");

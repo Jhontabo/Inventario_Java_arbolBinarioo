@@ -6,7 +6,6 @@ import java.util.List;
 public class ArbolProductos {
     private Nodo raiz;
     int num_nodos;
-    int alt;
 
     public ArbolProductos() {
         raiz = null;

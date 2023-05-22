@@ -30,11 +30,13 @@ public class Controlador {
     }
     
     
-    public boolean insertar(Producto producto) {
+    public boolean AgregarProducto(Producto producto) {
   	  String sql = "INSERT INTO productos (codigo, nombre,tipo,cantidad,precio) VALUES (?, ?, ?, ?, ?)";
   	  
           try
         {
+          con =cn.getConnection();
+          ps=con.prepareStatement(sql);
   	  ps.setInt(1, producto.getCodigo());
   	  ps.setString(2, producto.getNombre());
   	  ps.setString(3, producto.getTipo());
@@ -93,14 +95,15 @@ public class Controlador {
             rs=ps.executeQuery();
             
             while(rs.next()){
+                Producto prd= new Producto();
+                prd.setId(rs.getInt("id"));
+                prd.setCodigo(rs.getInt("codigo"));
+                prd.setNombre(rs.getString("nombre"));
+                prd.setTipo(rs.getString("tipo"));
+                prd.setCantidad(rs.getInt("cantidad")); 
+                prd.setPrecio(rs.getDouble("precio"));
                 
-                int codigo=rs.getInt("codigo");
-                String nombre=rs.getString("nombre");
-                String tipo=rs.getString("tipo");
-                int cantidad =rs.getInt("cantidad");
-                double precio=rs.getDouble("precio");
-                int id=rs.getInt("id");
-                ListaPr.add(new Producto(id,codigo, nombre, tipo, cantidad,precio));
+                ListaPr.add(prd);
             }
         } catch (SQLException e)
         {
@@ -113,7 +116,7 @@ public class Controlador {
 
     
       public boolean ModificarProducto(Producto pr){
-        String sql ="UPDATE Productos SET codigo=?,nombre=?,tipo=?,cantidad=?,preicio=? WHERE id=?"; 
+        String sql ="UPDATE Productos SET codigo=?,nombre=?,tipo=?,cantidad=?,precio=? WHERE id=?"; 
         
         try
         {
