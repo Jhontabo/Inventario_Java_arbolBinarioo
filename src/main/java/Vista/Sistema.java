@@ -692,6 +692,11 @@ public class Sistema extends javax.swing.JFrame {
 
         btn_nuevaVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pago.png"))); // NOI18N
         btn_nuevaVenta.setText("Nueva Venta");
+        btn_nuevaVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_nuevaVentaActionPerformed(evt);
+            }
+        });
 
         btn_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cliente.png"))); // NOI18N
         btn_clientes.setText("Clientes");
@@ -1027,6 +1032,14 @@ public class Sistema extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_actualizarPrActionPerformed
 
+    private void btn_nuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevaVentaActionPerformed
+        // TODO add your handling code here:
+       LimpiarTable();
+       //ListarNuevaVenta();
+       jTabbedPane1.setSelectedIndex(0);
+        
+    }//GEN-LAST:event_btn_nuevaVentaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1167,6 +1180,8 @@ public class Sistema extends javax.swing.JFrame {
         jTextCantidadPr.setText("");
         jTextPrecioPr.setText("");
     }
+     
+     
     
     
 
