@@ -147,4 +147,32 @@ public class ArbolProductos {
         }
         return nodoActual;
     }
+    
+    //Hacer el de busqueda y actualizar , puede cambiarse todo menos el id 
+    
+    
+    public boolean actualizarNodo(int id, Producto nuevoProducto) {
+    Nodo nodoActual = buscarNodoPorId(id);
+    if (nodoActual != null) {
+        nodoActual.setProducto(nuevoProducto);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+private Nodo buscarNodoPorId(int id) {
+    Nodo nodoActual = raiz;
+    while (nodoActual != null && !(nodoActual.getProducto().getId() == id)) {
+        if (id < nodoActual.getProducto().getId()) {
+            nodoActual = nodoActual.getIzquierdo();
+        } else {
+            nodoActual = nodoActual.getDerecho();
+        }
+    }
+    return nodoActual;
+}
+
+
+
 }

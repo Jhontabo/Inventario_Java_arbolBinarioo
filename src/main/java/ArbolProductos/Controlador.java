@@ -131,6 +131,7 @@ public class Controlador {
            ps.setDouble(5, pr.getPrecio());
            ps.setInt(6,pr.getId());
            ps.execute();
+           miArbol.actualizarNodo(pr.getId(), pr);
            return true;
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null, e.toString());
@@ -145,4 +146,8 @@ public class Controlador {
             }
         }
     }
+      
+      
+      
+      
 }
