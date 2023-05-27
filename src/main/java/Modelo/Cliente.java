@@ -13,7 +13,7 @@ public class Cliente {
    private String direccion;
    private String telefono;
    private String correo;
-   //private String fecha;
+   private String fecha;
 
     public Cliente() {
     }
