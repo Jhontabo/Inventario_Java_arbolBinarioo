@@ -73,12 +73,12 @@ public class VentaDao {
         return r;
     }
     
-   /* public int RegistrarDetalle(Detalle Dv){
-       String sql = "INSERT INTO detalle (id_pro, cantidad, precio, id_venta) VALUES (?,?,?,?)";
+    public int RegistrarDetalle(DetalleVenta Dv){
+       String sql = "INSERT INTO detalle_venta (cod_producto, cantidad, precio, id_venta) VALUES (?,?,?,?)";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, Dv.getId_pro());
+            ps.setInt(1, Dv.getCod_pro());
             ps.setInt(2, Dv.getCantidad());
             ps.setDouble(3, Dv.getPrecio());
             ps.setInt(4, Dv.getId());
@@ -93,15 +93,15 @@ public class VentaDao {
             }
         }
         return r;
-    }*/
+    }
     
-    public boolean ActualizarStock(int cant, int id){
-        String sql = "UPDATE productos SET stock = ? WHERE id = ?";
+    public boolean ActualizarStock(int cant, int cod){
+        String sql = "UPDATE productos SET cantidad = ? WHERE codigo = ?";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
             ps.setInt(1,cant);
-            ps.setInt(2, id);
+            ps.setInt(2, cod);
             ps.execute();
             return true;
         } catch (SQLException e) {

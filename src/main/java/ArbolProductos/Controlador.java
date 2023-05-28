@@ -148,16 +148,16 @@ public class Controlador {
         }
     }
       
-       public Producto BuscarPro(String cod){
+       public Producto BuscarPro(int cod){
         Producto producto = new Producto();
         String sql = "SELECT * FROM Productos WHERE codigo = ?";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, cod);
+            ps.setInt(1, cod);
             rs = ps.executeQuery();
             if (rs.next()) {
-                producto.setId(rs.getInt("id"));
+                producto.setCodigo(rs.getInt("codigo"));
                 producto.setNombre(rs.getString("nombre"));
                 producto.setPrecio(rs.getDouble("precio"));
                 producto.setCantidad(rs.getInt("cantidad"));
@@ -168,28 +168,7 @@ public class Controlador {
         return producto;
     }
       
-        /*public Producto BuscarId(int id){
-        Producto pro = new Producto();
-        String sql = "SELECT pr.id AS id_proveedor, pr.nombre AS nombre_proveedor, p.* FROM proveedor pr INNER JOIN productos p ON p.proveedor = pr.id              WHERE p.id = ?";
-        try {
-            con = cn.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                pro.setId(rs.getInt("id"));
-                pro.setCodigo(rs.getString("codigo"));
-                pro.setNombre(rs.getString("nombre"));
-                pro.setProveedor(rs.getInt("proveedor"));
-                pro.setProveedorPro(rs.getString("nombre_proveedor"));
-                pro.setStock(rs.getInt("stock"));
-                pro.setPrecio(rs.getDouble("precio"));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.toString());
-        }
-        return pro;
-    }*/
+       
       
       
 }
