@@ -127,5 +127,27 @@ public class ClienteDao {
             }
         }
     }
+     
+      public Cliente Buscarcliente(int id){
+       Cliente cl = new Cliente();
+       String sql = "SELECT * FROM clientes WHERE cedula = ?";
+       try {
+           con = cn.getConnection();
+           ps = con.prepareStatement(sql);
+           ps.setInt(1, id);
+           rs = ps.executeQuery();
+           if (rs.next()) {
+                cl.setId(rs.getInt("id"));
+                cl.setCedula(rs.getString("cedula"));
+                cl.setNombre(rs.getString("nombre"));
+                cl.setDireccion(rs.getString("direccion"));
+                cl.setTelefono(rs.getString("telefono"));
+                cl.setCorreo(rs.getString("correo"));
+           }
+       } catch (SQLException e) {
+           System.out.println(e.toString());
+       }
+       return cl;
+   }
     
 }
