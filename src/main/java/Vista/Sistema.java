@@ -240,7 +240,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 900, 80));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 900, 120));
 
         lbl_codigo.setFont(new java.awt.Font("Lucida Sans", 1, 12)); // NOI18N
         lbl_codigo.setText("Codigo");
@@ -323,7 +323,7 @@ public class Sistema extends javax.swing.JFrame {
 
         lblVendedor.setText("Jhontabo💧");
 
-        btnGuardarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/disco-flexible.png"))); // NOI18N
+        btnGuardarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/agregar.png"))); // NOI18N
         btnGuardarVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarVentaActionPerformed(evt);
@@ -503,7 +503,7 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        btn_agregarC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/disco-flexible.png"))); // NOI18N
+        btn_agregarC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/agregar.png"))); // NOI18N
         btn_agregarC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_agregarCActionPerformed(evt);
@@ -602,7 +602,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addComponent(btn_actualizarC, javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(btn_agregarC))
                             .addComponent(bnt_eliminarC))))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Vista2", Vista2);
@@ -644,7 +644,7 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        btn_agregarP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/disco-flexible.png"))); // NOI18N
+        btn_agregarP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/agregar.png"))); // NOI18N
         btn_agregarP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_agregarPActionPerformed(evt);
@@ -839,7 +839,7 @@ public class Sistema extends javax.swing.JFrame {
             TableProducto.getColumnModel().getColumn(5).setPreferredWidth(50);
         }
 
-        btn_agregarPr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/disco-flexible.png"))); // NOI18N
+        btn_agregarPr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/agregar.png"))); // NOI18N
         btn_agregarPr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_agregarPrActionPerformed(evt);
@@ -936,7 +936,7 @@ public class Sistema extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Vista4", Vista4);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 880, 540));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 880, 560));
 
         BarraLateral.setBackground(new java.awt.Color(89, 113, 231));
         BarraLateral.setForeground(new java.awt.Color(255, 255, 255));
