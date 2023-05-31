@@ -240,7 +240,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 900, 120));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 900, 130));
 
         lbl_codigo.setFont(new java.awt.Font("Lucida Sans", 1, 12)); // NOI18N
         lbl_codigo.setText("Codigo");
@@ -1448,7 +1448,7 @@ public class Sistema extends javax.swing.JFrame {
 
     private void jText_CorreoCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jText_CorreoCKeyTyped
         // TODO add your handling code here:
-        event.numberKeyPress(evt);
+        event.textKeyPress(evt);
     }//GEN-LAST:event_jText_CorreoCKeyTyped
 
     private void jText_rucPrKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jText_rucPrKeyTyped

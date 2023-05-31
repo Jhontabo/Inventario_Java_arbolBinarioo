@@ -7,8 +7,6 @@ package Modelo;
 public class Venta {
     private int id;
     private int cliente;
-
-   
     private String Vendedor;
     private double Total;
 
